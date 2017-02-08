@@ -5,6 +5,7 @@
 //  Created by Abraham Soto on 07/02/17.
 //  Copyright © 2017 Abraham. All rights reserved.
 //  Copyright © 2017 Josep Romagosa. All rights reserved.
+//  Copyright © 2017 Luis Richardo Moon. All rights reserved.
 //  Copyright © 2017 Javier Esponda. All rights reserved.
 
 import UIKit
