@@ -382,16 +382,16 @@
             </objects>
             <point key="canvasLocation" x="1628" y="-1991"/>
         </scene>
-        <!--Table View Controller-->
+        <!--iNventarios-->
         <scene sceneID="6Z7-de-iPe">
             <objects>
-                <tableViewController id="ABE-cZ-ufn" sceneMemberID="viewController">
+                <tableViewController id="ABE-cZ-ufn" customClass="TableViewController" customModule="urStore" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZOF-L6-d7e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="SMr-vd-rCi">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="SMr-vd-rCi">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SMr-vd-rCi" id="fuW-As-2s3">
@@ -408,7 +408,7 @@
                             <outlet property="delegate" destination="ABE-cZ-ufn" id="8EW-dv-O3r"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="LXh-NC-riY"/>
+                    <navigationItem key="navigationItem" title="iNventarios" id="LXh-NC-riY"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UPS-HD-gqr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
