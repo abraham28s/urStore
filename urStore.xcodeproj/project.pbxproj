@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D304AAFD1E52401600B2DB4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304AAFC1E52401600B2DB4C /* Constants.swift */; };
+		D304AAFF1E52756600B2DB4C /* ViewControllerScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304AAFE1E52756600B2DB4C /* ViewControllerScan.swift */; };
+		D304AB011E52C6DC00B2DB4C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304AB001E52C6DC00B2DB4C /* TableViewController.swift */; };
 		D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */; };
 		D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6C1E4ABFD900A148B5 /* ViewController.swift */; };
 		D3835D701E4ABFD900A148B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3835D6E1E4ABFD900A148B5 /* Main.storyboard */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		D304AAFC1E52401600B2DB4C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D304AAFE1E52756600B2DB4C /* ViewControllerScan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerScan.swift; sourceTree = "<group>"; };
+		D304AB001E52C6DC00B2DB4C /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		D3835D671E4ABFD900A148B5 /* urStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3835D6C1E4ABFD900A148B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				D3835D791E4ABFD900A148B5 /* Info.plist */,
 				D3835D711E4ABFD900A148B5 /* urStore.xcdatamodeld */,
 				D304AAFC1E52401600B2DB4C /* Constants.swift */,
+				D304AAFE1E52756600B2DB4C /* ViewControllerScan.swift */,
+				D304AB001E52C6DC00B2DB4C /* TableViewController.swift */,
 			);
 			path = urStore;
 			sourceTree = "<group>";
@@ -269,7 +275,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3835D731E4ABFD900A148B5 /* urStore.xcdatamodeld in Sources */,
+				D304AB011E52C6DC00B2DB4C /* TableViewController.swift in Sources */,
 				D304AAFD1E52401600B2DB4C /* Constants.swift in Sources */,
+				D304AAFF1E52756600B2DB4C /* ViewControllerScan.swift in Sources */,
 				D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */,
 				D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */,
 			);
