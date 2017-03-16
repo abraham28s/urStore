@@ -13,11 +13,11 @@
 		D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */; };
 		D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6C1E4ABFD900A148B5 /* ViewController.swift */; };
 		D3835D701E4ABFD900A148B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3835D6E1E4ABFD900A148B5 /* Main.storyboard */; };
-		D3835D731E4ABFD900A148B5 /* urStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3835D711E4ABFD900A148B5 /* urStore.xcdatamodeld */; };
 		D3835D751E4ABFD900A148B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3835D741E4ABFD900A148B5 /* Assets.xcassets */; };
 		D3835D781E4ABFD900A148B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3835D761E4ABFD900A148B5 /* LaunchScreen.storyboard */; };
-		D3835D831E4ABFD900A148B5 /* urStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D821E4ABFD900A148B5 /* urStoreTests.swift */; };
-		D3835D8E1E4ABFD900A148B5 /* urStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D8D1E4ABFD900A148B5 /* urStoreUITests.swift */; };
+		D3A0732A1E785C27003FA369 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A073291E785C27003FA369 /* DataBase.swift */; };
+		D3A0732D1E785CA5003FA369 /* puente.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A0732C1E785CA5003FA369 /* puente.m */; };
+		D3A073301E785CE1003FA369 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A0732F1E785CE1003FA369 /* libsqlite3.tbd */; };
 		D3C634741E53898900B51A5A /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634731E53898900B51A5A /* BalanceViewController.swift */; };
 		D3C634761E53983600B51A5A /* SeleccionProductosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634751E53983600B51A5A /* SeleccionProductosViewController.swift */; };
 		D3C634781E53993000B51A5A /* CeldaProForProductTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */; };
@@ -50,16 +50,15 @@
 		D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3835D6C1E4ABFD900A148B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D3835D6F1E4ABFD900A148B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D3835D721E4ABFD900A148B5 /* urStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = urStore.xcdatamodel; sourceTree = "<group>"; };
 		D3835D741E4ABFD900A148B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3835D771E4ABFD900A148B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3835D791E4ABFD900A148B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3835D7E1E4ABFD900A148B5 /* urStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = urStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3835D821E4ABFD900A148B5 /* urStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urStoreTests.swift; sourceTree = "<group>"; };
-		D3835D841E4ABFD900A148B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D3835D891E4ABFD900A148B5 /* urStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = urStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3835D8D1E4ABFD900A148B5 /* urStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urStoreUITests.swift; sourceTree = "<group>"; };
-		D3835D8F1E4ABFD900A148B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3A073291E785C27003FA369 /* DataBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
+		D3A0732B1E785CA4003FA369 /* urStore-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "urStore-Bridging-Header.h"; sourceTree = "<group>"; };
+		D3A0732C1E785CA5003FA369 /* puente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = puente.m; sourceTree = "<group>"; };
+		D3A0732F1E785CE1003FA369 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D3C634731E53898900B51A5A /* BalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		D3C634751E53983600B51A5A /* SeleccionProductosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeleccionProductosViewController.swift; sourceTree = "<group>"; };
 		D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CeldaProForProductTables.swift; sourceTree = "<group>"; };
@@ -72,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A073301E785CE1003FA369 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,9 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				D3835D691E4ABFD900A148B5 /* urStore */,
-				D3835D811E4ABFD900A148B5 /* urStoreTests */,
-				D3835D8C1E4ABFD900A148B5 /* urStoreUITests */,
 				D3835D681E4ABFD900A148B5 /* Products */,
+				D3A0732E1E785CE1003FA369 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,7 +121,6 @@
 				D3835D761E4ABFD900A148B5 /* LaunchScreen.storyboard */,
 				D304AAFE1E52756600B2DB4C /* ViewControllerScan.swift */,
 				D3835D791E4ABFD900A148B5 /* Info.plist */,
-				D3835D711E4ABFD900A148B5 /* urStore.xcdatamodeld */,
 				D304AAFC1E52401600B2DB4C /* Constants.swift */,
 				D304AB001E52C6DC00B2DB4C /* TableViewControllerTiendas.swift */,
 				D3C634731E53898900B51A5A /* BalanceViewController.swift */,
@@ -130,26 +128,19 @@
 				D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */,
 				D3C634791E53B19B00B51A5A /* InventarioViewController.swift */,
 				D3C6347B1E53BA5E00B51A5A /* RegistroViewController.swift */,
+				D3A073291E785C27003FA369 /* DataBase.swift */,
+				D3A0732C1E785CA5003FA369 /* puente.m */,
+				D3A0732B1E785CA4003FA369 /* urStore-Bridging-Header.h */,
 			);
 			path = urStore;
 			sourceTree = "<group>";
 		};
-		D3835D811E4ABFD900A148B5 /* urStoreTests */ = {
+		D3A0732E1E785CE1003FA369 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D3835D821E4ABFD900A148B5 /* urStoreTests.swift */,
-				D3835D841E4ABFD900A148B5 /* Info.plist */,
+				D3A0732F1E785CE1003FA369 /* libsqlite3.tbd */,
 			);
-			path = urStoreTests;
-			sourceTree = "<group>";
-		};
-		D3835D8C1E4ABFD900A148B5 /* urStoreUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D3835D8D1E4ABFD900A148B5 /* urStoreUITests.swift */,
-				D3835D8F1E4ABFD900A148B5 /* Info.plist */,
-			);
-			path = urStoreUITests;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +212,7 @@
 					D3835D661E4ABFD900A148B5 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = UJDY9YHJ79;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					D3835D7D1E4ABFD900A148B5 = {
@@ -291,14 +283,15 @@
 			files = (
 				D3C634761E53983600B51A5A /* SeleccionProductosViewController.swift in Sources */,
 				D3C6347A1E53B19B00B51A5A /* InventarioViewController.swift in Sources */,
-				D3835D731E4ABFD900A148B5 /* urStore.xcdatamodeld in Sources */,
 				D304AB011E52C6DC00B2DB4C /* TableViewControllerTiendas.swift in Sources */,
 				D304AAFD1E52401600B2DB4C /* Constants.swift in Sources */,
+				D3A0732D1E785CA5003FA369 /* puente.m in Sources */,
 				D3C634781E53993000B51A5A /* CeldaProForProductTables.swift in Sources */,
 				D304AAFF1E52756600B2DB4C /* ViewControllerScan.swift in Sources */,
 				D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */,
 				D3C634741E53898900B51A5A /* BalanceViewController.swift in Sources */,
 				D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */,
+				D3A0732A1E785C27003FA369 /* DataBase.swift in Sources */,
 				D3C6347C1E53BA5E00B51A5A /* RegistroViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,7 +300,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3835D831E4ABFD900A148B5 /* urStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +307,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3835D8E1E4ABFD900A148B5 /* urStoreUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,11 +442,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = UJDY9YHJ79;
 				INFOPLIST_FILE = urStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Soto.urStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "urStore/urStore-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -464,11 +458,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = UJDY9YHJ79;
 				INFOPLIST_FILE = urStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Soto.urStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "urStore/urStore-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -571,19 +567,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D3835D711E4ABFD900A148B5 /* urStore.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D3835D721E4ABFD900A148B5 /* urStore.xcdatamodel */,
-			);
-			currentVersion = D3835D721E4ABFD900A148B5 /* urStore.xcdatamodel */;
-			path = urStore.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D3835D5F1E4ABFD900A148B5 /* Project object */;
 }
