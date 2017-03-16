@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,21 +22,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Fondo" translatesAutoresizingMaskIntoConstraints="NO" id="Bib-K2-tD0">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoITESM" translatesAutoresizingMaskIntoConstraints="NO" id="MCr-aJ-TdV">
+                                <rect key="frame" x="21" y="284" width="333" height="99"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y9q-ep-PJO">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="2.3322356355492957e-05" green="0.70526355504989624" blue="0.80653709173202515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Bib-K2-tD0" secondAttribute="trailing" id="5wP-1L-huq"/>
-                            <constraint firstItem="Bib-K2-tD0" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="9OF-sH-VAI"/>
-                            <constraint firstItem="Bib-K2-tD0" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="Yli-CT-K0x"/>
-                            <constraint firstItem="Bib-K2-tD0" firstAttribute="bottom" secondItem="xb3-aO-Qok" secondAttribute="top" id="mqQ-Cb-Qkj"/>
+                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="5" id="NMb-92-YD0"/>
+                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="PbX-hm-sEg"/>
+                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="ZEq-fo-uDR"/>
+                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="264" id="jhS-AI-FB5"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -45,6 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Fondo" width="750" height="1334"/>
+        <image name="LogoITESM" width="4084" height="1082"/>
     </resources>
 </document>
