@@ -4,13 +4,13 @@ import AVFoundation
 // MARK: - Configurations
 
 public struct Title {
-  public static var text = NSLocalizedString("Scan barcode", comment: "")
+  public static var text = NSLocalizedString("Escanea ISBN", comment: "")
   public static var font = UIFont.boldSystemFont(ofSize: 17)
   public static var color = UIColor.black
 }
 
 public struct CloseButton {
-  public static var text = NSLocalizedString("Close", comment: "")
+  public static var text = NSLocalizedString("Cerrar", comment: "")
   public static var font = UIFont.boldSystemFont(ofSize: 17)
   public static var color = UIColor.black
 }
@@ -23,7 +23,7 @@ public struct SettingsButton {
 
 public struct Info {
   public static var text = NSLocalizedString(
-    "Place the barcode within the window to scan. The search will start automatically.", comment: "")
+    "Coloca el ISBN en el recuadro.", comment: "")
   public static var loadingText = NSLocalizedString(
     "Looking for your product...", comment: "")
   public static var notFoundText = NSLocalizedString(

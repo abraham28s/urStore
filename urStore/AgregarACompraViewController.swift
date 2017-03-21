@@ -11,7 +11,7 @@ import UIKit
 class AgregarACompraViewController: UIViewController, BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate, BarcodeScannerDismissalDelegate{
     
     var scan = BarcodeScannerController()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,8 +24,25 @@ class AgregarACompraViewController: UIViewController, BarcodeScannerCodeDelegate
     }
     
     @IBAction func camaraPress(_ sender: UIButton) {
-        
+        scan.reset()
+        scan.errorDelegate = self
+        scan.dismissalDelegate = self
+        scan.codeDelegate = self
+        present(scan, animated: true,completion:nil)
     }
+    
+    ///////////Protocolos
+    func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
+        print(code)
+    }
+    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
+        print("Error al capturar codigo")
+    }
+    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
+        print("se cerro")
+    }
+    
+    ////////////////////
 
     /*
     // MARK: - Navigation

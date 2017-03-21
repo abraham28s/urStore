@@ -23,7 +23,7 @@ public protocol BarcodeScannerDismissalDelegate: class {
 /**
  Barcode scanner controller with 4 sates:
  - Scanning mode
- - Processing animationh
+ - Processing animation
  - Unauthorized mode
  - Not found error message
  */
