@@ -10,6 +10,15 @@
 		3B7235001E81E7F80041F528 /* AgregarACompraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7234FF1E81E7F80041F528 /* AgregarACompraViewController.swift */; };
 		D304AAFD1E52401600B2DB4C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304AAFC1E52401600B2DB4C /* Constants.swift */; };
 		D304AB011E52C6DC00B2DB4C /* TableViewControllerTiendas.swift in Sources */ = {isa = PBXBuildFile; fileRef = D304AB001E52C6DC00B2DB4C /* TableViewControllerTiendas.swift */; };
+		D31735601E81F2F900652286 /* BarcodeScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31735561E81F2F900652286 /* BarcodeScannerController.swift */; };
+		D31735611E81F2F900652286 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31735571E81F2F900652286 /* Config.swift */; };
+		D31735621E81F2F900652286 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31735581E81F2F900652286 /* HeaderView.swift */; };
+		D31735631E81F2F900652286 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31735591E81F2F900652286 /* InfoView.swift */; };
+		D31735641E81F2F900652286 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317355A1E81F2F900652286 /* State.swift */; };
+		D31735651E81F2F900652286 /* TorchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317355B1E81F2F900652286 /* TorchMode.swift */; };
+		D31735661E81F2F900652286 /* flashOff@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D317355D1E81F2F900652286 /* flashOff@3x.png */; };
+		D31735671E81F2F900652286 /* flashOn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D317355E1E81F2F900652286 /* flashOn@3x.png */; };
+		D31735681E81F2F900652286 /* info@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D317355F1E81F2F900652286 /* info@3x.png */; };
 		D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */; };
 		D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6C1E4ABFD900A148B5 /* ViewController.swift */; };
 		D3835D701E4ABFD900A148B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3835D6E1E4ABFD900A148B5 /* Main.storyboard */; };
@@ -46,6 +55,15 @@
 		3B7234FF1E81E7F80041F528 /* AgregarACompraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgregarACompraViewController.swift; sourceTree = "<group>"; };
 		D304AAFC1E52401600B2DB4C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D304AB001E52C6DC00B2DB4C /* TableViewControllerTiendas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerTiendas.swift; sourceTree = "<group>"; };
+		D31735561E81F2F900652286 /* BarcodeScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerController.swift; sourceTree = "<group>"; };
+		D31735571E81F2F900652286 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		D31735581E81F2F900652286 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D31735591E81F2F900652286 /* InfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
+		D317355A1E81F2F900652286 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		D317355B1E81F2F900652286 /* TorchMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TorchMode.swift; sourceTree = "<group>"; };
+		D317355D1E81F2F900652286 /* flashOff@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashOff@3x.png"; sourceTree = "<group>"; };
+		D317355E1E81F2F900652286 /* flashOn@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flashOn@3x.png"; sourceTree = "<group>"; };
+		D317355F1E81F2F900652286 /* info@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@3x.png"; sourceTree = "<group>"; };
 		D3835D671E4ABFD900A148B5 /* urStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3835D6C1E4ABFD900A148B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +110,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D31735551E81F2F900652286 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				D31735561E81F2F900652286 /* BarcodeScannerController.swift */,
+				D31735571E81F2F900652286 /* Config.swift */,
+				D31735581E81F2F900652286 /* HeaderView.swift */,
+				D31735591E81F2F900652286 /* InfoView.swift */,
+				D317355A1E81F2F900652286 /* State.swift */,
+				D317355B1E81F2F900652286 /* TorchMode.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		D317355C1E81F2F900652286 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D317355D1E81F2F900652286 /* flashOff@3x.png */,
+				D317355E1E81F2F900652286 /* flashOn@3x.png */,
+				D317355F1E81F2F900652286 /* info@3x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		D3835D5E1E4ABFD900A148B5 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +158,8 @@
 				D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */,
 				D3835D6C1E4ABFD900A148B5 /* ViewController.swift */,
 				D3835D6E1E4ABFD900A148B5 /* Main.storyboard */,
+				D31735551E81F2F900652286 /* Sources */,
+				D317355C1E81F2F900652286 /* Images */,
 				D3835D741E4ABFD900A148B5 /* Assets.xcassets */,
 				D3835D761E4ABFD900A148B5 /* LaunchScreen.storyboard */,
 				D3835D791E4ABFD900A148B5 /* Info.plist */,
@@ -211,7 +254,7 @@
 				TargetAttributes = {
 					D3835D661E4ABFD900A148B5 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 5QNMRKCVF6;
+						DevelopmentTeam = UJDY9YHJ79;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -256,6 +299,9 @@
 			files = (
 				D3835D781E4ABFD900A148B5 /* LaunchScreen.storyboard in Resources */,
 				D3835D751E4ABFD900A148B5 /* Assets.xcassets in Resources */,
+				D31735671E81F2F900652286 /* flashOn@3x.png in Resources */,
+				D31735681E81F2F900652286 /* info@3x.png in Resources */,
+				D31735661E81F2F900652286 /* flashOff@3x.png in Resources */,
 				D3835D701E4ABFD900A148B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,15 +327,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D31735631E81F2F900652286 /* InfoView.swift in Sources */,
+				D31735601E81F2F900652286 /* BarcodeScannerController.swift in Sources */,
 				D3C634761E53983600B51A5A /* SeleccionProductosViewController.swift in Sources */,
+				D31735651E81F2F900652286 /* TorchMode.swift in Sources */,
 				D3C6347A1E53B19B00B51A5A /* InventarioViewController.swift in Sources */,
+				D31735611E81F2F900652286 /* Config.swift in Sources */,
 				D304AB011E52C6DC00B2DB4C /* TableViewControllerTiendas.swift in Sources */,
 				D304AAFD1E52401600B2DB4C /* Constants.swift in Sources */,
 				3B7235001E81E7F80041F528 /* AgregarACompraViewController.swift in Sources */,
 				D3A0732D1E785CA5003FA369 /* puente.m in Sources */,
 				D3C634781E53993000B51A5A /* CeldaProForProductTables.swift in Sources */,
 				D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */,
+				D31735621E81F2F900652286 /* HeaderView.swift in Sources */,
 				D3C634741E53898900B51A5A /* BalanceViewController.swift in Sources */,
+				D31735641E81F2F900652286 /* State.swift in Sources */,
 				D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */,
 				D3A0732A1E785C27003FA369 /* DataBase.swift in Sources */,
 				D3C6347C1E53BA5E00B51A5A /* RegistroViewController.swift in Sources */,
@@ -443,7 +495,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5QNMRKCVF6;
+				DEVELOPMENT_TEAM = UJDY9YHJ79;
 				INFOPLIST_FILE = urStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Soto.urStore;
@@ -459,7 +511,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 5QNMRKCVF6;
+				DEVELOPMENT_TEAM = UJDY9YHJ79;
 				INFOPLIST_FILE = urStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Soto.urStore;

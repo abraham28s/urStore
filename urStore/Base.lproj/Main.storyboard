@@ -146,6 +146,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.96274190989847719" green="0.44128362455645898" blue="0.10643538908938927" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" image="camera"/>
+                                <connections>
+                                    <action selector="camaraPress:" destination="6Xf-Db-Ezm" eventType="touchUpInside" id="Pky-XW-JZ3"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nombre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sL8-Hu-KIU">
                                 <rect key="frame" x="16" y="174" width="67" height="21"/>
