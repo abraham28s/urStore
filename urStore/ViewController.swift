@@ -49,7 +49,26 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         gestoOcultar = UISwipeGestureRecognizer(target: self, action: #selector(ocultarMenuLateral))
         gestoOcultar.direction = .left
         view.addGestureRecognizer(gestoOcultar)
+        self.view.isExclusiveTouch = false
+        contenedor.isUserInteractionEnabled = true
         
+        /*self.currentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ventasSB")
+        self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+        self.addChildViewController(self.currentViewController!)
+        self.currentViewController?.view.isUserInteractionEnabled = true
+        self.addSubview(subView: self.currentViewController!.view, toView: self.contenedor)*/
+        self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
+        self.displayContentController(content: self.currentViewController!)
+        
+        super.viewDidLoad()
+        
+    }
+    
+    func displayContentController(content: UIViewController) {
+        
+        addChildViewController(content)
+        contenedor.addSubview(content.view)
+        content.didMove(toParentViewController: self)
     }
     
     func mostrarMenuLateral(){
@@ -130,18 +149,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.addChildViewController(self.currentViewController!)
         self.addSubview(subView: self.currentViewController!.view, toView: self.contenedor)*/
         
-        let newViewController = self.currentViewController
+       /* let newViewController = self.currentViewController
         newViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         self.cycleFromViewController(oldViewController: self.currentViewController!, toViewController: newViewController!)
-        self.currentViewController = newViewController
+        self.currentViewController = newViewController*/
     }
     
-    func cycleFromViewController(oldViewController: UIViewController, toViewController newViewController: UIViewController) {
+   /* func cycleFromViewController(oldViewController: UIViewController, toViewController newViewController: UIViewController) {
         oldViewController.willMove(toParentViewController: nil)
         self.addChildViewController(newViewController)
         self.addSubview(subView: newViewController.view, toView:self.contenedor!)
         newViewController.view.alpha = 0
-        newViewController.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5, animations: {
             newViewController.view.alpha = 1
             oldViewController.view.alpha = 0
@@ -151,14 +169,14 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                                     oldViewController.removeFromParentViewController()
                                     newViewController.didMove(toParentViewController: self)
         })
-    }
+    }*/
     
-    func addSubview(subView:UIView, toView parentView:UIView) {
+    /*func addSubview(subView:UIView, toView parentView:UIView) {
         parentView.addSubview(subView)
         var viewBindingsDict = [String: AnyObject]()
         viewBindingsDict["subView"] = subView
         
-    }
+    }*/
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var celda = UITableViewCell(style: .default, reuseIdentifier: "cell")
