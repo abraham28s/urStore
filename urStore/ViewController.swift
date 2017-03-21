@@ -55,11 +55,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.view.isExclusiveTouch = false
         contenedor.isUserInteractionEnabled = true
         
-        /*self.currentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ventasSB")
-        self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        self.addChildViewController(self.currentViewController!)
-        self.currentViewController?.view.isUserInteractionEnabled = true
-        self.addSubview(subView: self.currentViewController!.view, toView: self.contenedor)*/
         self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
         self.displayContentController(content: self.currentViewController!)
         self.navigationItem.title = "Ventas"
@@ -174,7 +169,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         case 3:
             print("hola")
         default:
-            print("hola")
+            print("nothing")
         }
         
         self.ocultarMenuLateral()
