@@ -355,7 +355,7 @@
                                         <rect key="frame" x="0.0" y="28" width="165" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lry-pd-QSm" id="oYc-jk-qRZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="165" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="165" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -374,7 +374,7 @@
                                         <rect key="frame" x="0.0" y="28" width="165" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ywg-AI-NoP" id="476-2F-OMD">
-                                            <rect key="frame" x="0.0" y="0.0" width="165" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="165" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -409,7 +409,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SMr-vd-rCi" id="fuW-As-2s3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>

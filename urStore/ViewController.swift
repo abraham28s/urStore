@@ -49,6 +49,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         gestoOcultar = UISwipeGestureRecognizer(target: self, action: #selector(ocultarMenuLateral))
         gestoOcultar.direction = .left
         view.addGestureRecognizer(gestoOcultar)
+        self.view.isExclusiveTouch = false
+        contenedor.isUserInteractionEnabled = true
+        
+        self.currentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ventasSB")
+        self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
+        self.addChildViewController(self.currentViewController!)
+        self.currentViewController?.view.isUserInteractionEnabled = true
+        self.addSubview(subView: self.currentViewController!.view, toView: self.contenedor)
+        super.viewDidLoad()
         
     }
     
