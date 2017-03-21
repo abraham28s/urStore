@@ -20,6 +20,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var currentViewController: UIViewController?
     @IBOutlet weak var contenedor: UIView!
     
+    var tapPantalla = UITapGestureRecognizer()
     
     let ArregloSecciones = ["Movimientos","Información","Finanzas","Más"]
     let ArregloColumnas = [["Ventas","Compras"],["Inventario","Compras Sugeridas"],["Balance"],["Proveedores","Registro de Productos","Ajustes de tienda"]]
@@ -41,6 +42,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         menuLateral?.addSubview(tablaMenu)
         view.addSubview(menuLateral!)
         
+        tapPantalla = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
+        
         
         gestoMostrar = UISwipeGestureRecognizer(target: self, action: #selector(mostrarMenuLateral))
         gestoMostrar.direction = .right
@@ -52,16 +55,20 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.view.isExclusiveTouch = false
         contenedor.isUserInteractionEnabled = true
         
-        /*self.currentViewController = self.storyboard?.instantiateViewController(withIdentifier: "ventasSB")
-        self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        self.addChildViewController(self.currentViewController!)
-        self.currentViewController?.view.isUserInteractionEnabled = true
-        self.addSubview(subView: self.currentViewController!.view, toView: self.contenedor)*/
         self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
         self.displayContentController(content: self.currentViewController!)
+        self.navigationItem.title = "Ventas"
         
         super.viewDidLoad()
         
+    }
+    
+    func tapEnPantalla(){
+        if menuMostrado{
+            ocultarMenuLateral()
+        }else{
+            self.view.endEditing(true)
+        }
     }
     
     func displayContentController(content: UIViewController) {
@@ -71,11 +78,18 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         content.didMove(toParentViewController: self)
     }
     
+    func hideContentController(content: UIViewController) {
+        content.willMove(toParentViewController: nil)
+        content.view.removeFromSuperview()
+        content.removeFromParentViewController()
+    }
+    
     func mostrarMenuLateral(){
+        self.view.endEditing(true)
         if !menuMostrado {
             menuMostrado = true
             menuLateral?.isHidden = false
-            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.curveLinear,
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: UIViewAnimationOptions.curveLinear,
                        animations:{
                         self.menuLateral?.frame = CGRect(x: -50, y: 44, width: 300, height: self.view.frame.height-44)
                         self.botonMenu.frame = CGRect(x: self.botonMenu.frame.minX + 300, y: self.botonMenu.frame.minY, width: self.botonMenu.frame.width, height: self.botonMenu.frame.height)
@@ -87,7 +101,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func ocultarMenuLateral(){
         if menuMostrado {
             menuMostrado = false
-            UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.curveLinear, animations:{
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: UIViewAnimationOptions.curveLinear, animations:{
                 self.menuLateral?.frame = CGRect(x: -350, y: 44, width: 300, height: self.view.frame.height-44)
                 self.botonMenu.frame = CGRect(x: self.botonMenu.frame.minX - 300, y: self.botonMenu.frame.minY, width: self.botonMenu.frame.width, height: self.botonMenu.frame.height)
             }, completion: nil)
@@ -121,62 +135,53 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         switch indexPath.section {
         case 0:
+            
             switch indexPath.row {
             case 0:
-                self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
+                cambiarHijo(identif: "ventasSB")
+                self.navigationItem.title = "Ventas"
+            case 1:
+                cambiarHijo(identif: "ingresosSB")
+                self.navigationItem.title = "Compras"
             default:
-                print("hola")
+                print("nothing")
             }
             
         case 1:
-            print("hola")
+            switch indexPath.row {
+            case 0:
+                cambiarHijo(identif: "inventarioSB")
+                self.navigationItem.title = "Inventario"
+            case 1:
+                cambiarHijo(identif: "comprasSugeridasSB")
+                self.navigationItem.title = "Compras Sugeridas"
+            default:
+                 print("nothing")
+            }
         case 2:
-            print("hola")
+            switch indexPath.row {
+            case 0:
+                cambiarHijo(identif: "balanceSB")
+                self.navigationItem.title = "Balance"
+            default:
+                print("nothing")
+            }
         case 3:
             print("hola")
         default:
-            print("hola")
+            print("nothing")
         }
         
         self.ocultarMenuLateral()
         
-        /*self.addChildViewController(nextView)
-        nextView.view.frame = CGRect(x: 0, y: 109, width: nextView.view.frame.width, height: nextView.view.frame.height)
-        nextView.didMove(toParentViewController: self)*/
-        
-        
-        /*self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        self.addChildViewController(self.currentViewController!)
-        self.addSubview(subView: self.currentViewController!.view, toView: self.contenedor)*/
-        
-       /* let newViewController = self.currentViewController
-        newViewController!.view.translatesAutoresizingMaskIntoConstraints = false
-        self.cycleFromViewController(oldViewController: self.currentViewController!, toViewController: newViewController!)
-        self.currentViewController = newViewController*/
     }
     
-   /* func cycleFromViewController(oldViewController: UIViewController, toViewController newViewController: UIViewController) {
-        oldViewController.willMove(toParentViewController: nil)
-        self.addChildViewController(newViewController)
-        self.addSubview(subView: newViewController.view, toView:self.contenedor!)
-        newViewController.view.alpha = 0
-        UIView.animate(withDuration: 0.5, animations: {
-            newViewController.view.alpha = 1
-            oldViewController.view.alpha = 0
-        },
-                                   completion: { finished in
-                                    oldViewController.view.removeFromSuperview()
-                                    oldViewController.removeFromParentViewController()
-                                    newViewController.didMove(toParentViewController: self)
-        })
-    }*/
+    func cambiarHijo(identif: String){
+        hideContentController(content: self.currentViewController!)
+        self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identif) as UIViewController
+        self.displayContentController(content: self.currentViewController!)
+    }
     
-    /*func addSubview(subView:UIView, toView parentView:UIView) {
-        parentView.addSubview(subView)
-        var viewBindingsDict = [String: AnyObject]()
-        viewBindingsDict["subView"] = subView
-        
-    }*/
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var celda = UITableViewCell(style: .default, reuseIdentifier: "cell")
