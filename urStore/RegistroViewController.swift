@@ -8,10 +8,10 @@
 
 import UIKit
 
-class RegistroViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class RegistroViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate,BarcodeScannerDismissalDelegate {
 
     @IBOutlet weak var RegistroProductosTable: UITableView!
-    
+    var scan = BarcodeScannerController()
     var Arreglo = ["Coca-Cola","Pepsi","Fanta"]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +44,27 @@ class RegistroViewController: UIViewController, UITableViewDelegate,UITableViewD
     }
     
     
+    @IBAction func pressCamera(_ sender: Any) {
+        scan.reset()
+        scan.errorDelegate = self
+        scan.dismissalDelegate = self
+        scan.codeDelegate = self
+        present(scan, animated: true,completion:nil)
+    }
     
-
+    //////////Protocolos
+    func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
+        print(code)
+    }
+    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
+        print("Error al capturar codigo")
+    }
+    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
+        scan.dismiss(animated: true, completion: nil)
+    }
+    
+    ////////////////////
+    
     /*
     // MARK: - Navigation
 

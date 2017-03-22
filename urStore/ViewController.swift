@@ -167,7 +167,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 print("nothing")
             }
         case 3:
-            print("hola")
+            switch indexPath.row {
+            case 0:
+                print("nothing")
+            case 1:
+                cambiarHijo(identif: "registroSB")
+                self.navigationItem.title = "Registro de Productos"
+            default:
+                print("nothing")
+            }
         default:
             print("nothing")
         }

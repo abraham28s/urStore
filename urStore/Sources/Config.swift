@@ -4,7 +4,7 @@ import AVFoundation
 // MARK: - Configurations
 
 public struct Title {
-  public static var text = NSLocalizedString("Escanea ISBN", comment: "")
+  public static var text = NSLocalizedString("Escanea Codigo de Barras", comment: "")
   public static var font = UIFont.boldSystemFont(ofSize: 17)
   public static var color = UIColor.black
 }
@@ -23,13 +23,13 @@ public struct SettingsButton {
 
 public struct Info {
   public static var text = NSLocalizedString(
-    "Coloca el ISBN en el recuadro.", comment: "")
+    "Coloca el codigo de barras en el recuadro.", comment: "")
   public static var loadingText = NSLocalizedString(
     "Looking for your product...", comment: "")
   public static var notFoundText = NSLocalizedString(
     "No product found.", comment: "")
   public static var settingsText = NSLocalizedString(
-    "In order to scan barcodes you have to allow camera under your settings.", comment: "")
+    "Para poder escanear productos se requiere acceso desde la aplicación de ajustes", comment: "")
 
   public static var font = UIFont.boldSystemFont(ofSize: 14)
   public static var textColor = UIColor.black

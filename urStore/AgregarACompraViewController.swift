@@ -39,7 +39,7 @@ class AgregarACompraViewController: UIViewController, BarcodeScannerCodeDelegate
         print("Error al capturar codigo")
     }
     func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
-        print("se cerro")
+        scan.dismiss(animated: true, completion: nil)
     }
     
     ////////////////////

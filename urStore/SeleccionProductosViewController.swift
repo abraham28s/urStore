@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SeleccionProductosViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
+class SeleccionProductosViewController: UIViewController, UITableViewDataSource,UITableViewDelegate,BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate,BarcodeScannerDismissalDelegate {
     
     @IBOutlet weak var TablaProductos: UITableView!
-    
+    var scan = BarcodeScannerController()
     let ArregloProductos = [[1,"Coca-Cola",4,32.00],[2,"Pepsi",2,16.00],[3,"Fanta",6,48.00]]
     
     override func viewDidLoad() {
@@ -31,6 +31,15 @@ class SeleccionProductosViewController: UIViewController, UITableViewDataSource,
         return 1
     }
     
+    @IBAction func cameraPress(_ sender: Any) {
+        scan.reset()
+        scan.errorDelegate = self
+        scan.dismissalDelegate = self
+        scan.codeDelegate = self
+        present(scan, animated: true,completion:nil)
+    }
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ArregloProductos.count
     }
@@ -40,6 +49,19 @@ class SeleccionProductosViewController: UIViewController, UITableViewDataSource,
         
         return cell
     }
+    
+    ///////////Protocolos
+    func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
+        print(code)
+    }
+    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
+        print("Error al capturar codigo")
+    }
+    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
+        scan.dismiss(animated: true, completion: nil)
+    }
+    
+    ////////////////////
     
     
 
