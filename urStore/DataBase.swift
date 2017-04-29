@@ -7,16 +7,25 @@
 //
 
 import Foundation
-
+import UIKit
 
 
 class DataBase {
+    
+    let tiendas = "Tiendas"
+    let productos = "Productos"
+    let cajas = "Cajas"
+    let marcas = "Marcas"
+    let inventario = "Inventario"
+    let historial = "Historial"
+    let historialProductos = "HistorialProductos"
+    let proveedores = "Proveedores"
     
     var basesDatos: OpaquePointer? = nil
     
     func inicializar() -> Bool{
         if abrirBaseDatos() {
-            if( crearTabla(nombreTabla: "Productos", campos: ["ID INTEGER PRIMARY KEY AUTOINCREMENT", "NOMBRE TEXT", "PRECIO DECIMAL", "CANTIDAD INT"])){
+            if(crearTablas()){
                 
                 return true
             }else{
@@ -25,6 +34,30 @@ class DataBase {
         } else {
             return false
         }
+    }
+    
+    func crearTablas()->Bool{
+        let tblTiendas = crearTabla(nombreTabla: "Tiendas", campos: ["idTienda INTEGER PRIMARY KEY AUTOINCREMENT", "nombreTienda TEXT"])
+        
+        
+        let tblProductos = crearTabla(nombreTabla: "Productos", campos: ["idProducto INTEGER PRIMARY KEY AUTOINCREMENT", "nombreProducto TEXT", "precioUnitario DECIMAL","codigoBarras TEXT","unidad TEXT", "idMarca INTEGER"])
+        
+        
+        let tblCajas = crearTabla(nombreTabla: "Cajas", campos: ["idCaja INTEGER PRIMARY KEY AUTOINCREMENT", "nombreCaja TEXT", "precio DECIMAL", "idProducto INTEGER", "cantidadEnCaja INTEGER", "codigoBarras TEXT"])
+        
+        let tblMarcas = crearTabla(nombreTabla: "Marcas", campos: ["idMarca INTEGER PRIMARY KEY AUTOINCREMENT", "nombreMarca TEXT","idProveedor INTEGER"])
+        
+        let tblInventario = crearTabla(nombreTabla: "Inventario", campos: ["idInv INTEGER PRIMARY KEY AUTOINCREMENT", "idProducto INTEGER","tipo TEXT", "cantidad INTEGER", "cantidadEnUnidad TEXT, idTienda INTEGER"])
+        
+        let tblHistorial = crearTabla(nombreTabla: "Historial", campos: ["idTransaccion INTEGER PRIMARY KEY AUTOINCREMENT", "fecha DATE","tipo TEXT","total DECIMAL"])
+        
+        let tblHistorialProductos = crearTabla(nombreTabla: "HistorialProductos", campos: ["idTransaccion INTEGER", "idProducto INTEGER", "precioUnitario DECIMAL", "cantidad INTEGER"])
+        
+        let tblProveedores = crearTabla(nombreTabla: "Proveedores", campos: ["idProveedor INTEGER PRIMARY KEY AUTOINCREMENT", "nombreProveedor TEXT","frecuencia TEXT","idTienda INTEGER"])
+        
+        return tblTiendas && tblProductos && tblMarcas && tblInventario && tblHistorial && tblHistorialProductos && tblProveedores && tblCajas
+            
+        
     }
     
     func crearTabla(nombreTabla: String, campos: [String]) -> Bool {
@@ -42,7 +75,7 @@ class DataBase {
     
     func abrirBaseDatos() -> Bool {
         if let path = obtenerPath("urStore.txt") {
-            //print(path)
+            print("\nThe DB PATH is:\(path)\n")
             if sqlite3_open(path.absoluteString, &basesDatos) == SQLITE_OK {
                 return true
             }
@@ -57,5 +90,71 @@ class DataBase {
             return path.appendingPathComponent(salida)
         }
         return nil
+    }
+    
+    func insertarEnDB(tabla: String, columnas: String, valores: String)->Bool{
+        let sqlInserta = "INSERT INTO \(tabla) \(columnas) VALUES \(valores)"
+        var error: UnsafeMutablePointer<Int8>? = nil
+        print(sqlInserta)
+        if sqlite3_exec(basesDatos, sqlInserta, nil, nil, &error) != SQLITE_OK {
+            print("\nError en query insera")
+            let errmsg = String(cString: sqlite3_errmsg(basesDatos))
+            print("Error Desc: \(errmsg)\n")
+           return false
+        }
+        return true
+    }
+    
+    func selectOneColumToVector(tabla: String, columna: String, whereClause: String = "")->[String]{
+        let sqlConsulta = "SELECT \(columna) FROM \(tabla) \(whereClause)"
+        print(sqlConsulta)
+        var declaracion: OpaquePointer? = nil
+        if sqlite3_prepare_v2(basesDatos, sqlConsulta, -1, &declaracion, nil) == SQLITE_OK {
+            var result:[String] = []
+            
+            while sqlite3_step(declaracion) == SQLITE_ROW {
+                result.append(String.init(cString: sqlite3_column_text(declaracion, Int32(0))))
+            }
+            return result
+        }else{
+            print("\nError en query consulta")
+            let errmsg = String(cString: sqlite3_errmsg(basesDatos))
+            print("Error Desc: \(errmsg)\n")
+            return []
+        }
+    }
+    
+    func alertaDefault(titulo: String, texto:String) -> UIAlertController{
+        let alert = UIAlertController(title: titulo, message: texto, preferredStyle: .alert)
+        let alertAccion = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(alertAccion)
+        return alert
+        
+    }
+    
+    func selectFrom(table: String, columnas: String, whereClause: String = "")->[[String]]{
+        let sqlConsulta = "SELECT \(columnas) FROM \(table) \(whereClause)"
+        print(sqlConsulta)
+        var declaracion: OpaquePointer? = nil
+        if sqlite3_prepare_v2(basesDatos, sqlConsulta, -1, &declaracion, nil) == SQLITE_OK {
+            let arrCol = columnas.components(separatedBy: ",")
+            var result:[[String]] = []
+            var i = 0
+            while sqlite3_step(declaracion) == SQLITE_ROW {
+                var j = 0
+                result.append([])
+                for _ in arrCol {
+                    result[i].append(String.init(cString: sqlite3_column_text(declaracion, Int32(j))))
+                    j += 1
+                }
+                i += 1
+            }
+            return result
+        }else{
+            print("\nError en query consulta")
+            let errmsg = String(cString: sqlite3_errmsg(basesDatos))
+            print("Error Desc: \(errmsg)\n")
+            return []
+        }
     }
 }

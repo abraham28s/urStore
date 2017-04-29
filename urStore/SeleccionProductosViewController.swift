@@ -45,8 +45,8 @@ class SeleccionProductosViewController: UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = CeldaProForProductTables(clave: String(describing: ArregloProductos[indexPath.row][0]), descripcion: ArregloProductos[indexPath.row][1] as! String, cantidad: String(describing: ArregloProductos[indexPath.row][2]), total: String(describing: ArregloProductos[indexPath.row][3]))
-        
+        //let cell = CeldaProForProductTables(clave: String(describing: ArregloProductos[indexPath.row][0]), descripcion: ArregloProductos[indexPath.row][1] as! String, cantidad: String(describing: ArregloProductos[indexPath.row][2]), total: String(describing: ArregloProductos[indexPath.row][3]))
+        let cell = UITableViewCell()
         return cell
     }
     

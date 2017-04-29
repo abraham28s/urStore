@@ -9,17 +9,34 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+    @IBOutlet var tablaTiendas: UITableView!
     
-    var ArregloTiendas:[String] = ["Tienda Prueba"]
-
+    var arregloTiendas:[[String]] = []
+    let DB = DataBase()
+    var ind = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //print(arregloTiendas.count)
+        
+        if(DB.inicializar()){
+            print("Exito con la base")
+            
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        arregloTiendas = DB.selectFrom(table: "Tiendas", columnas: "idTienda,nombreTienda")
+        //print(arregloTiendas)
+        tablaTiendas.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,31 +48,39 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return ArregloTiendas.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return arregloTiendas.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        cell.textLabel?.text = ArregloTiendas[indexPath.row]
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "reuseIdentifier")
+        //print(indexPath.row)
+        cell.textLabel?.text = arregloTiendas[indexPath.row][1]
 
         return cell
     }
     
 
     
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ind = indexPath.row
+        GlobalVariables.idTienda = arregloTiendas[indexPath.row][0]
+        print(GlobalVariables.idTienda)
+        performSegue(withIdentifier: "entrarATienda", sender: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "entrarATienda"){
+            if let vc = segue.destination as? ViewController{
+                vc.titulo = arregloTiendas[ind][1]
+            }
+        }
+    }
 
     /*
     // Override to support editing the table view.

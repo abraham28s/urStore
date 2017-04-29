@@ -2,19 +2,32 @@
 //  AgregarACompraViewController.swift
 //  urStore
 //
-//  Created by Javier Esponda on 3/21/17.
+//  Created by Abraham Soto on 26/04/17.
 //  Copyright © 2017 Abraham. All rights reserved.
 //
 
 import UIKit
 
-class AgregarACompraViewController: UIViewController, BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate, BarcodeScannerDismissalDelegate{
+class AgregarACompraViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    let DB:DataBase = DataBase()
     var scan = BarcodeScannerController()
     
+    @IBOutlet weak var codigoTxt: UITextField!
+    @IBOutlet weak var tablaProductos: UITableView!
+    @IBOutlet weak var cantidadTxt: UITextField!
+    
+    var arregloProductos:[[String]] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        tablaProductos.delegate = self
+        tablaProductos.dataSource = self
+        if DB.inicializar(){
+            print("Exito con la base en agregar a compra")
+        }
         
+        arregloProductos = DB.selectFrom(table: DB.productos, columnas: "idProducto,nombreProducto,precioUnitario,codigoBarras")
         // Do any additional setup after loading the view.
     }
 
@@ -23,35 +36,59 @@ class AgregarACompraViewController: UIViewController, BarcodeScannerCodeDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func camaraPress(_ sender: UIButton) {
-        scan.reset()
-        scan.errorDelegate = self
-        scan.dismissalDelegate = self
-        scan.codeDelegate = self
-        present(scan, animated: true,completion:nil)
+    @IBAction func pressHelp(_ sender: UIButton) {
+        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "1.Busca un producto con su nombre\n2.Seleccionalo en la tabla\n3.Escribe la cantidad a agregar\n4.Presiona agregar a la compra"), animated: true, completion: nil)
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
-    ///////////Protocolos
-    func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
-        print(code)
-    }
-    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        print("Error al capturar codigo")
-    }
-    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
-        scan.dismiss(animated: true, completion: nil)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arregloProductos.count
     }
     
-    ////////////////////
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "445")
+        cell.textLabel?.text = arregloProductos[indexPath.row][1]
+        return cell
     }
-    */
+    
+    @IBAction func pressAgregar(_ sender: UIButton) {
+        let tupla = validaCampos()
+        if(tupla.valida){
+            arregloProductos[tablaProductos.indexPathForSelectedRow!.row].append(cantidadTxt.text!)
+            agregarACompra()
+        }else{
+            self.present(DB.alertaDefault(titulo: "Error", texto: tupla.errorLog), animated: true, completion: nil)
+            
+        }
+    }
+    
+    func agregarACompra(){
+        var papa = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! ViewController
+        var papaEspecifico = papa.currentViewController as! ComprasViewController
+        papaEspecifico.agregarACompra(producto: arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!])
+
+    }
+    
+    func validaCampos()->(valida:Bool,errorLog:String){
+        var errorLog = ""
+        if(tablaProductos.indexPathForSelectedRow == nil){
+            errorLog = "\(errorLog)Debes seleccionar un producto\n"
+        }
+        if(cantidadTxt.text == ""){
+            errorLog = "\(errorLog)Cantidad no puede estar vacio\n"
+        }
+        
+        return (errorLog == "",errorLog)
+    }
+    
+    @IBAction func nombreTxtonChange(_ sender: UITextField) {
+        let clause = "WHERE nombreProducto like '\(sender.text!)%'"
+        arregloProductos = DB.selectFrom(table: DB.productos, columnas: "idProducto,nombreProducto,precioUnitario,codigoBarras", whereClause: clause)
+        tablaProductos.reloadData()
+    }
+    
 
 }

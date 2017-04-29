@@ -20,10 +20,13 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var currentViewController: UIViewController?
     @IBOutlet weak var contenedor: UIView!
     
+    @IBOutlet weak var tituloLbl: UILabel!
+    
+    var titulo:String = ""
     var tapPantalla = UITapGestureRecognizer()
     
     let ArregloSecciones = ["Movimientos","Información","Finanzas","Más"]
-    let ArregloColumnas = [["Ventas","Compras"],["Inventario","Compras Sugeridas"],["Balance"],["Proveedores","Registro de Productos","Ajustes de tienda"]]
+    let ArregloColumnas = [["Ventas","Compras"],["Inventario","Compras Sugeridas"],["Balance"],["Proveedores","Marcas","Registro de Productos","Registro de Cajas"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +34,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
+        self.navigationItem.title = titulo
         
         menuLateral = UIView(frame: CGRect(x: -300, y: 44, width: 300, height: view.frame.height-44))
         menuLateral?.backgroundColor = UIColor.black
@@ -57,7 +61,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
         self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
         self.displayContentController(content: self.currentViewController!)
-        self.navigationItem.title = "Ventas"
+        
         
         super.viewDidLoad()
         
@@ -139,10 +143,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             switch indexPath.row {
             case 0:
                 cambiarHijo(identif: "ventasSB")
-                self.navigationItem.title = "Ventas"
+                tituloLbl.text = "Ventas"
             case 1:
                 cambiarHijo(identif: "ingresosSB")
-                self.navigationItem.title = "Compras"
+                tituloLbl.text = "Compras"
             default:
                 print("nothing")
             }
@@ -151,10 +155,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             switch indexPath.row {
             case 0:
                 cambiarHijo(identif: "inventarioSB")
-                self.navigationItem.title = "Inventario"
+                tituloLbl.text = "Inventario"
             case 1:
                 cambiarHijo(identif: "comprasSugeridasSB")
-                self.navigationItem.title = "Compras Sugeridas"
+                tituloLbl.text = "Compras Sugeridas"
             default:
                  print("nothing")
             }
@@ -162,17 +166,24 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             switch indexPath.row {
             case 0:
                 cambiarHijo(identif: "balanceSB")
-                self.navigationItem.title = "Balance"
+                tituloLbl.text = "Balance"
             default:
                 print("nothing")
             }
         case 3:
             switch indexPath.row {
             case 0:
-                print("nothing")
+                cambiarHijo(identif: "proveedoresSB")
+                tituloLbl.text = "Registro de Proveedores"
             case 1:
+                cambiarHijo(identif: "marcasSB")
+                tituloLbl.text = "Registro de Marcas"
+            case 2:
                 cambiarHijo(identif: "registroSB")
-                self.navigationItem.title = "Registro de Productos"
+                tituloLbl.text = "Registro de Productos"
+            case 3:
+                cambiarHijo(identif: "registroCajasSB")
+                tituloLbl.text = "Registro de Cajas"
             default:
                 print("nothing")
             }

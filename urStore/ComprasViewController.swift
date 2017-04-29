@@ -1,29 +1,41 @@
 //
-//  RegistroViewController.swift
+//  ComprasViewController.swift
 //  urStore
 //
-//  Created by Abraham Soto on 14/02/17.
+//  Created by Abraham Soto on 27/04/17.
 //  Copyright © 2017 Abraham. All rights reserved.
 //
 
 import UIKit
 
-class RegistroViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate,BarcodeScannerDismissalDelegate {
-
+class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate,BarcodeScannerDismissalDelegate {
+    
+    @IBOutlet weak var tabla: UITableView!
     @IBOutlet weak var RegistroProductosTable: UITableView!
     var scan = BarcodeScannerController()
-    var Arreglo = ["Coca-Cola","Pepsi","Fanta"]
+    var Arreglo:[[String]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         RegistroProductosTable.delegate = self
         RegistroProductosTable.dataSource = self
-
+        tabla.allowsMultipleSelection = false
+        tabla.allowsSelection = false
+        
         // Do any additional setup after loading the view.
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabla.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func agregarACompra(producto:[String]){
+        self.Arreglo.append(producto)
     }
     
     
@@ -36,9 +48,8 @@ class RegistroViewController: UIViewController, UITableViewDelegate,UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "reuseIdentifier")
-        
-        cell.textLabel?.text = Arreglo[indexPath.row]
+        let total = Double(Arreglo[indexPath.row][4])! * Double(Arreglo[indexPath.row][2])!
+        let cell = CeldaProForProductTables(nombre: Arreglo[indexPath.row][1], cantidad: Arreglo[indexPath.row][4], precio: "\(total)")
         
         return cell
     }
@@ -66,13 +77,13 @@ class RegistroViewController: UIViewController, UITableViewDelegate,UITableViewD
     ////////////////////
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

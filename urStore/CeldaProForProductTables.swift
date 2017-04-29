@@ -10,25 +10,24 @@ import UIKit
 
 class CeldaProForProductTables: UITableViewCell {
     
-    init(clave: String,descripcion:String,cantidad:String,total:String){
+    init(nombre:String,cantidad:String,precio:String){
         super.init(style: .default, reuseIdentifier: nil)
         
-        let claveLABEL = UILabel(frame: CGRect(x: 0, y: 0, width: 47, height: self.frame.height))
-        claveLABEL.text = clave
-        self.addSubview(claveLABEL)
         
-        let descripcionLABEL = UILabel(frame: CGRect(x: 47, y: 0, width: 143, height: self.frame.height))
-        descripcionLABEL.text = descripcion
+        
+        let descripcionLABEL = UILabel(frame: CGRect(x: 5, y: 0, width: 165, height: self.frame.height))
+        descripcionLABEL.text = nombre
         self.addSubview(descripcionLABEL)
         
-        let cantidadLABEL = UILabel(frame: CGRect(x: 143+47, y: 0, width: 103, height: self.frame.height))
+        let cantidadLABEL = UILabel(frame: CGRect(x: 155, y: 0, width: 80, height: self.frame.height))
         cantidadLABEL.text = cantidad
+        cantidadLABEL.textAlignment = .right
         self.addSubview(cantidadLABEL)
         
-        let totalLABEL = UILabel(frame: CGRect(x: 143+47+103, y: 0, width: 43, height: self.frame.height))
-        totalLABEL.text = total
+        let totalLABEL = UILabel(frame: CGRect(x: 155+80, y: 0, width: 80, height: self.frame.height))
+        totalLABEL.text = precio
+        totalLABEL.textAlignment = .right
         self.addSubview(totalLABEL)
-        
         
         
         
