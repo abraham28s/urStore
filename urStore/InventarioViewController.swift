@@ -20,7 +20,7 @@ class InventarioViewController:  UIViewController,UITableViewDelegate,UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         if DB.inicializar(){
-            print("Exito con base en Inventario")
+            print("Éxito con base en Inventario")
         }
         let clause = "WHERE a.idProducto = b.id and b.esCaja = 'no'"
         Arreglo = DB.selectFrom(table: "\(DB.inventario) a, \(DB.productos) b", columnas: "a.idProducto,a.cantidad,b.nombre,b.precioVenta", whereClause: clause)
@@ -62,7 +62,7 @@ class InventarioViewController:  UIViewController,UITableViewDelegate,UITableVie
     }
     
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        print("Error al capturar codigo")
+        print("Error al capturar código")
     }
     func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
         scan.dismiss(animated: true, completion: nil)

@@ -24,7 +24,7 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
         tablaProductos.delegate = self
         tablaProductos.dataSource = self
         if DB.inicializar(){
-            print("Exito con la base en agregar a transaccion")
+            print("Éxito con la base en agregar a transaccion")
         }
         if(GlobalVariables.siEsCompraEsTrue){
             arregloProductos = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,codigoBarras,esCaja")
@@ -97,7 +97,7 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
             errorLog = "\(errorLog)Debes seleccionar un producto\n"
         }
         if(cantidadTxt.text == ""){
-            errorLog = "\(errorLog)Cantidad no puede estar vacio\n"
+            errorLog = "\(errorLog)Cantidad no puede estar vacío\n"
         }
         
         return (errorLog == "",errorLog)

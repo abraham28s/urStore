@@ -18,7 +18,7 @@ class RegistrarProveedorViewController: UIViewController, UIPickerViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         if DB.inicializar(){
-            print("Exito con DB en registrar proveedores")
+            print("Éxito con DB en registrar proveedores")
         }
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
         self.view.addGestureRecognizer(tap)
@@ -52,7 +52,7 @@ class RegistrarProveedorViewController: UIViewController, UIPickerViewDelegate, 
             ///Desea Registrar Otro proveedor o ir a marcas o nada
             ///
             
-            let alert = UIAlertController(title: "Exito", message: "El proveedor se ha registrado con exito.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Éxito", message: "El proveedor se ha registrado con éxito.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Ir a Marcas", style: .default, handler: { action in
                 self.irAPantallaCon(titulo: "Registro de Marcas")
@@ -108,7 +108,7 @@ class RegistrarProveedorViewController: UIViewController, UIPickerViewDelegate, 
     func validaCampos()->(valida:Bool,errorLog:String){
         var errorLog = ""
         if(nombreTxt.text == ""){
-            errorLog = "\(errorLog)Nombre no puede estar vacio\n"
+            errorLog = "\(errorLog)Nombre no puede estar vacío\n"
         }
         
         

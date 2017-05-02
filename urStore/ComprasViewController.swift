@@ -17,13 +17,13 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
     let DB:DataBase = DataBase()
     
     @IBAction func pressHelp(_ sender: Any) {
-        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el simbolo de mas agrega productos y procesa la compra."), animated: true, completion: nil)
+        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el símbolo de mas agrega productos y procesa la compra."), animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         GlobalVariables.siEsCompraEsTrue = true
         if(DB.inicializar()){
-            print("Exito con la base en compras")
+            print("Éxito con la base en compras")
         }
         tabla.delegate = self
         tabla.dataSource = self
@@ -171,7 +171,7 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
         
         if(banderaExito){
             //La compra ha sigo guardada con Exito
-            let alert = UIAlertController(title: "Exito", message: "La compra se ha guardado correctamente", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Éxito", message: "La compra se ha guardado correctamente", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ir a inventario", style: .default, handler: { (action) in
                 self.irAPantallaCon(titulo: "Inventario")
             }))
@@ -253,7 +253,7 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
     
 
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        print("Error al capturar codigo")
+        print("Error al capturar código")
     }
     func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
         scan.dismiss(animated: true, completion: nil)

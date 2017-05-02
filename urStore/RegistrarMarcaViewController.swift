@@ -20,7 +20,7 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         //print(GlobalVariables.idTienda)
         if DB.inicializar(){
-            print("Exito DB en marcas")
+            print("Éxito DB en marcas")
         }
         tablaProveedores.delegate = self
         tablaProveedores.dataSource = self
@@ -59,7 +59,7 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
             ///Desea Registrar Otra marca o ir a productos o nada
             ///
             
-            let alert = UIAlertController(title: "Exito", message: "La marca se ha registrado correctamente.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Éxito", message: "La marca se ha registrado correctamente.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ir a Productos", style: .default, handler: { action in
                 self.irAPantallaCon(titulo: "Registro de Productos")
             }))
@@ -111,7 +111,7 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
     func validaCampos()->(valida:Bool,errorLog:String){
         var errorLog = ""
         if(nombreTxt.text == ""){
-            errorLog = "\(errorLog)Nombre no puede estar vacio\n"
+            errorLog = "\(errorLog)Nombre no puede estar vacío\n"
         }
         if(tablaProveedores.indexPathForSelectedRow == nil){
             errorLog = "\(errorLog)Debe seleccionar un proveedor\n"

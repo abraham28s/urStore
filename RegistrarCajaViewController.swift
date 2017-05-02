@@ -26,7 +26,7 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         if DB.inicializar(){
-            print("Exito DB en registrar caja")
+            print("Éxito DB en registrar caja")
         }
         // Do any additional setup after loading the view.
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
@@ -62,7 +62,7 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
     }
     
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        print("Error al capturar codigo")
+        print("Error al capturar código")
     }
     func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
         scan.dismiss(animated: true, completion: nil)
@@ -71,26 +71,26 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
     func validaCampos()->(valida:Bool,errorLog:String){
         var errorLog = ""
         if(CodigoPrincipalTxt.text == ""){
-            errorLog = "\(errorLog)Codigo de barras no puede estar vacio\n"
+            errorLog = "\(errorLog)Código de barras no puede estar vacío\n"
         }
         if(precioTxt.text == ""){
-            errorLog = "\(errorLog)Precio compra no puede estar vacio\n"
+            errorLog = "\(errorLog)Precio compra no puede estar vacío\n"
         }
         if(precioVentaTxt.text == ""){
-            errorLog = "\(errorLog)Precio venta no puede estar vacio\n"
+            errorLog = "\(errorLog)Precio venta no puede estar vacío\n"
         }
         if(nombreTxt.text == ""){
-            errorLog = "\(errorLog)Nombre no puede estar vacio\n"
+            errorLog = "\(errorLog)Nombre no puede estar vacío\n"
         }
         if(piezasTxt.text == ""){
-            errorLog = "\(errorLog)Piezas por Caja no puede estar vacio\n"
+            errorLog = "\(errorLog)Piezas por Caja no puede estar vacío\n"
         }
         
         if(CodigoPrincipalTxt.text == CodigoSecundarioTxt.text){
-            errorLog = "\(errorLog)El codigo de caja y codigo de producto no pueden ser iguales\n"
+            errorLog = "\(errorLog)El código de caja y código de producto no pueden ser iguales\n"
         }
         if(CodigoSecundarioTxt.text == ""){
-            errorLog = "\(errorLog)Codigo de barras del producto no puede estar vacio\n"
+            errorLog = "\(errorLog)Código de barras del producto no puede estar vacío\n"
         }
         
         return (errorLog == "",errorLog)
@@ -125,7 +125,7 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
                     ///
                     ///Desea Registrar Otra caja o ir a cajas o nada
                     ///
-                    let alert = UIAlertController(title: "Exito", message: "La caja se ha registrado correctamente.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Éxito", message: "La caja se ha registrado correctamente.", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ir a Ventas", style: .default, handler: { action in
                         self.irAPantallaCon(titulo: "Ventas")
                     }))
@@ -149,7 +149,7 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
                 alert.addAction(UIAlertAction(title: "Ir a registro de productos", style: .default, handler: { action in
                     self.irAPantallaCon(titulo: "Registro de Productos")
                 }))
-                alert.addAction(UIAlertAction(title: "Lo corregire", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Lo corregiré", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
     
@@ -158,7 +158,7 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
             alert.addAction(UIAlertAction(title: "Ir a compras", style: .default, handler: { action in
                 self.irAPantallaCon(titulo: "Compras")
             }))
-            alert.addAction(UIAlertAction(title: "Lo corregire", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Lo corregiré", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
     }

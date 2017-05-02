@@ -20,7 +20,7 @@ class BalanceViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         if DB.inicializar(){
-            print("Exito con base en balance")
+            print("Éxito con base en balance")
         }
         ArregloEntradas = DB.selectFrom(table: DB.historial, columnas: "total", whereClause: "WHERE idTienda = \(GlobalVariables.idTienda) AND tipo = 'Venta'")
         ArregloSalidas = DB.selectFrom(table: DB.historial, columnas: "total", whereClause: "WHERE idTienda = \(GlobalVariables.idTienda) AND tipo = 'Compra'")

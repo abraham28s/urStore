@@ -32,7 +32,7 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
         tablaMarcas.allowsMultipleSelection = false
         tablaMarcas.allowsSelection = true
         if DB.inicializar(){
-            print("Exito con DB en registrar producto")
+            print("Éxito con DB en registrar producto")
         }
         arregloMarcas = DB.selectFrom(table: DB.marcas, columnas: "idMarca, nombreMarca")
         tablaMarcas.reloadData()
@@ -91,7 +91,7 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
     }
     
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
-        print("Error al capturar codigo")
+        print("Error al capturar código")
     }
     func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
         scan.dismiss(animated: true, completion: nil)
@@ -123,7 +123,7 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
                 ///
                 ///Desea Registrar Otro producto o ir a cajas o nada
                 ///
-                let alert = UIAlertController(title: "Exito", message: "El producto se ha registrado correctamente.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Éxito", message: "El producto se ha registrado correctamente.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ir a Cajas", style: .default, handler: { action in
                     self.irAPantallaCon(titulo: "Registro de Cajas")
                 }))
@@ -195,19 +195,19 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
     func validaCampos()->(valida:Bool,errorLog:String){
         var errorLog = ""
         if(CodigoPrincipalTxt.text == ""){
-            errorLog = "\(errorLog)Codigo de barras no puede estar vacio\n"
+            errorLog = "\(errorLog)Código de barras no puede estar vacío\n"
         }
         if(nombreTxt.text == ""){
-            errorLog = "\(errorLog)Nombre no puede estar vacio\n"
+            errorLog = "\(errorLog)Nombre no puede estar vacío\n"
         }
         if(unidadTxt.text == ""){
-            errorLog = "\(errorLog)Unidad no puede estar vacio\n"
+            errorLog = "\(errorLog)Unidad no puede estar vacío\n"
         }
         if(precioProductoTxt.text == ""){
-            errorLog = "\(errorLog)Precio compra no puede estar vacio\n"
+            errorLog = "\(errorLog)Precio compra no puede estar vacío\n"
         }
         if(precioVentaTxt.text == ""){
-            errorLog = "\(errorLog)Precio venta no puede estar vacio\n"
+            errorLog = "\(errorLog)Precio venta no puede estar vacío\n"
         }
         if(tablaMarcas.indexPathForSelectedRow == nil){
             errorLog = "\(errorLog)Debe seleccionar una marca\n"
