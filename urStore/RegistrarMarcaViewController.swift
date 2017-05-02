@@ -8,17 +8,20 @@
 
 import UIKit
 
-class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var nombreTxt: UITextField!
     @IBOutlet weak var tablaProveedores: UITableView!
     var arregloProveedores:[[String]] = []
     let DB: DataBase = DataBase()
+    var ind:IndexPath = IndexPath()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //print(GlobalVariables.idTienda)
-        DB.inicializar()
+        if DB.inicializar(){
+            print("Exito DB en marcas")
+        }
         tablaProveedores.delegate = self
         tablaProveedores.dataSource = self
         tablaProveedores.allowsSelection = true
@@ -28,6 +31,14 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
         //print(arregloProveedores)
         tablaProveedores.reloadData()
         // Do any additional setup after loading the view.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        // Do any additional setup after loading the view.
+    }
+    
+    func tapEnPantalla(){
+        self.view.endEditing(true)
     }
     
     @IBAction func pressRegistrarMarca(_ sender: Any) {
@@ -47,7 +58,53 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
             ///
             ///Desea Registrar Otra marca o ir a productos o nada
             ///
+            
+            let alert = UIAlertController(title: "Exito", message: "La marca se ha registrado correctamente.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ir a Productos", style: .default, handler: { action in
+                self.irAPantallaCon(titulo: "Registro de Productos")
+            }))
+            alert.addAction(UIAlertAction(title: "Registrar otra marca", style: .default, handler: {action in
+                self.nombreTxt.text = ""
+                self.tablaProveedores.deselectRow(at: self.ind, animated: true)
+                self.tablaProveedores.cellForRow(at: self.ind)?.accessoryType = .none
+            }))
+            self.present(alert, animated: true, completion: nil)
 
+        }
+    }
+    
+    func irAPantallaCon(titulo:String)->Void{
+        let padre = self.parent as! ViewController
+        switch titulo {
+        case "Compras":
+            padre.cambiarHijo(identif: "ingresosSB")
+            padre.tituloLbl.text = titulo
+        case "Ventas":
+            padre.cambiarHijo(identif: "ventasSB")
+            padre.tituloLbl.text = titulo
+        case "Inventario":
+            padre.cambiarHijo(identif: "inventarioSB")
+            padre.tituloLbl.text = titulo
+        case "Compras Sugeridas":
+            padre.cambiarHijo(identif: "comprasSugeridasSB")
+            padre.tituloLbl.text = titulo
+        case "Balance":
+            padre.cambiarHijo(identif: "balanceSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Proveedores":
+            padre.cambiarHijo(identif: "proveedoresSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Marcas":
+            padre.cambiarHijo(identif: "marcasSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Productos":
+            padre.cambiarHijo(identif: "registroSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Cajas":
+            padre.cambiarHijo(identif: "registroCajasSB")
+            padre.tituloLbl.text = titulo
+        default:
+            print("Nothing")
         }
     }
     
@@ -59,8 +116,6 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
         if(tablaProveedores.indexPathForSelectedRow == nil){
             errorLog = "\(errorLog)Debe seleccionar un proveedor\n"
         }
-        
-        
         return (errorLog == "",errorLog)
     }
 
@@ -78,6 +133,7 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ind = indexPath
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
     }
     

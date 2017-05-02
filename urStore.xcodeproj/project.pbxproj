@@ -24,6 +24,7 @@
 		D361BACA1EB00F9D00E5AAE1 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D361BAC91EB00F9D00E5AAE1 /* GlobalVariables.swift */; };
 		D361BAD71EB0DE1B00E5AAE1 /* AgregarACompraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D361BAD61EB0DE1B00E5AAE1 /* AgregarACompraViewController.swift */; };
 		D361BAD91EB2696300E5AAE1 /* ComprasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D361BAD81EB2696300E5AAE1 /* ComprasViewController.swift */; };
+		D361BADD1EB5B21900E5AAE1 /* VentasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D361BADC1EB5B21900E5AAE1 /* VentasViewController.swift */; };
 		D361DDC21EAE702600332D2C /* AgregarTiendaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D361DDC11EAE702600332D2C /* AgregarTiendaViewController.swift */; };
 		D3835D6B1E4ABFD900A148B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */; };
 		D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3835D6C1E4ABFD900A148B5 /* ViewController.swift */; };
@@ -34,7 +35,6 @@
 		D3A0732D1E785CA5003FA369 /* puente.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A0732C1E785CA5003FA369 /* puente.m */; };
 		D3A073301E785CE1003FA369 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D3A0732F1E785CE1003FA369 /* libsqlite3.tbd */; };
 		D3C634741E53898900B51A5A /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634731E53898900B51A5A /* BalanceViewController.swift */; };
-		D3C634761E53983600B51A5A /* SeleccionProductosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634751E53983600B51A5A /* SeleccionProductosViewController.swift */; };
 		D3C634781E53993000B51A5A /* CeldaProForProductTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */; };
 		D3C6347A1E53B19B00B51A5A /* InventarioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634791E53B19B00B51A5A /* InventarioViewController.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +74,7 @@
 		D361BAC91EB00F9D00E5AAE1 /* GlobalVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		D361BAD61EB0DE1B00E5AAE1 /* AgregarACompraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgregarACompraViewController.swift; sourceTree = "<group>"; };
 		D361BAD81EB2696300E5AAE1 /* ComprasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComprasViewController.swift; sourceTree = "<group>"; };
+		D361BADC1EB5B21900E5AAE1 /* VentasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VentasViewController.swift; sourceTree = "<group>"; };
 		D361DDC11EAE702600332D2C /* AgregarTiendaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgregarTiendaViewController.swift; sourceTree = "<group>"; };
 		D3835D671E4ABFD900A148B5 /* urStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = urStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,7 +90,6 @@
 		D3A0732C1E785CA5003FA369 /* puente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = puente.m; sourceTree = "<group>"; };
 		D3A0732F1E785CE1003FA369 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D3C634731E53898900B51A5A /* BalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
-		D3C634751E53983600B51A5A /* SeleccionProductosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeleccionProductosViewController.swift; sourceTree = "<group>"; };
 		D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CeldaProForProductTables.swift; sourceTree = "<group>"; };
 		D3C634791E53B19B00B51A5A /* InventarioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventarioViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,29 +166,29 @@
 			isa = PBXGroup;
 			children = (
 				D3835D6A1E4ABFD900A148B5 /* AppDelegate.swift */,
+				D3A0732C1E785CA5003FA369 /* puente.m */,
+				D3A0732B1E785CA4003FA369 /* urStore-Bridging-Header.h */,
+				D3A073291E785C27003FA369 /* DataBase.swift */,
+				D361BAC91EB00F9D00E5AAE1 /* GlobalVariables.swift */,
 				D3835D6C1E4ABFD900A148B5 /* ViewController.swift */,
 				D3835D6E1E4ABFD900A148B5 /* Main.storyboard */,
+				D3835D761E4ABFD900A148B5 /* LaunchScreen.storyboard */,
+				D3835D791E4ABFD900A148B5 /* Info.plist */,
 				D31735551E81F2F900652286 /* Sources */,
 				D317355C1E81F2F900652286 /* Images */,
 				D3835D741E4ABFD900A148B5 /* Assets.xcassets */,
-				D3835D761E4ABFD900A148B5 /* LaunchScreen.storyboard */,
-				D3835D791E4ABFD900A148B5 /* Info.plist */,
 				D304AB001E52C6DC00B2DB4C /* TableViewControllerTiendas.swift */,
+				D361DDC11EAE702600332D2C /* AgregarTiendaViewController.swift */,
 				D3C634731E53898900B51A5A /* BalanceViewController.swift */,
-				D3C634751E53983600B51A5A /* SeleccionProductosViewController.swift */,
 				D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */,
-				D3C634791E53B19B00B51A5A /* InventarioViewController.swift */,
-				D3A073291E785C27003FA369 /* DataBase.swift */,
-				D3A0732C1E785CA5003FA369 /* puente.m */,
-				D3A0732B1E785CA4003FA369 /* urStore-Bridging-Header.h */,
 				D361BAC11EAFDE6A00E5AAE1 /* RegistrarCajaViewController.swift */,
 				3B7234FF1E81E7F80041F528 /* RegistrarProductosViewController.swift */,
-				D361DDC11EAE702600332D2C /* AgregarTiendaViewController.swift */,
 				D361BAC51EAFEA8900E5AAE1 /* RegistrarProveedorViewController.swift */,
 				D361BAC71EAFEA9800E5AAE1 /* RegistrarMarcaViewController.swift */,
-				D361BAC91EB00F9D00E5AAE1 /* GlobalVariables.swift */,
 				D361BAD61EB0DE1B00E5AAE1 /* AgregarACompraViewController.swift */,
 				D361BAD81EB2696300E5AAE1 /* ComprasViewController.swift */,
+				D3C634791E53B19B00B51A5A /* InventarioViewController.swift */,
+				D361BADC1EB5B21900E5AAE1 /* VentasViewController.swift */,
 			);
 			path = urStore;
 			sourceTree = "<group>";
@@ -347,12 +347,12 @@
 				D361BAC61EAFEA8900E5AAE1 /* RegistrarProveedorViewController.swift in Sources */,
 				D31735601E81F2F900652286 /* BarcodeScannerController.swift in Sources */,
 				D361BAC21EAFDE6A00E5AAE1 /* RegistrarCajaViewController.swift in Sources */,
-				D3C634761E53983600B51A5A /* SeleccionProductosViewController.swift in Sources */,
 				D361BACA1EB00F9D00E5AAE1 /* GlobalVariables.swift in Sources */,
 				D31735651E81F2F900652286 /* TorchMode.swift in Sources */,
 				D3C6347A1E53B19B00B51A5A /* InventarioViewController.swift in Sources */,
 				D31735611E81F2F900652286 /* Config.swift in Sources */,
 				D304AB011E52C6DC00B2DB4C /* TableViewControllerTiendas.swift in Sources */,
+				D361BADD1EB5B21900E5AAE1 /* VentasViewController.swift in Sources */,
 				D361BAD71EB0DE1B00E5AAE1 /* AgregarACompraViewController.swift in Sources */,
 				3B7235001E81E7F80041F528 /* RegistrarProductosViewController.swift in Sources */,
 				D361DDC21EAE702600332D2C /* AgregarTiendaViewController.swift in Sources */,

@@ -6,6 +6,10 @@
 //  Copyright © 2017 Abraham. All rights reserved.
 //
 
+
+//Todo: terminar compras como caja, pantalla pago ventas, afectacion por ventas y detalles esteticos.
+
+
 import Foundation
 import UIKit
 
@@ -13,7 +17,7 @@ import UIKit
 class DataBase {
     
     let tiendas = "Tiendas"
-    let productos = "Productos"
+    let productos = "ProductosCajas"
     let cajas = "Cajas"
     let marcas = "Marcas"
     let inventario = "Inventario"
@@ -40,18 +44,19 @@ class DataBase {
         let tblTiendas = crearTabla(nombreTabla: "Tiendas", campos: ["idTienda INTEGER PRIMARY KEY AUTOINCREMENT", "nombreTienda TEXT"])
         
         
-        let tblProductos = crearTabla(nombreTabla: "Productos", campos: ["idProducto INTEGER PRIMARY KEY AUTOINCREMENT", "nombreProducto TEXT", "precioUnitario DECIMAL","codigoBarras TEXT","unidad TEXT", "idMarca INTEGER"])
+        let tblProductos = crearTabla(nombreTabla: "ProductosCajas", campos: ["id INTEGER PRIMARY KEY AUTOINCREMENT", "nombre TEXT", "precioCompra DECIMAL","precioVenta Decimal","codigoBarras TEXT","unidad TEXT", "idMarca INTEGER","esCaja TEXT"])
         
         
-        let tblCajas = crearTabla(nombreTabla: "Cajas", campos: ["idCaja INTEGER PRIMARY KEY AUTOINCREMENT", "nombreCaja TEXT", "precio DECIMAL", "idProducto INTEGER", "cantidadEnCaja INTEGER", "codigoBarras TEXT"])
+        
+        let tblCajas = crearTabla(nombreTabla: "Cajas", campos: ["idCaja INTEGER", "idProducto INTEGER", "cantidadEnCaja INTEGER"])
         
         let tblMarcas = crearTabla(nombreTabla: "Marcas", campos: ["idMarca INTEGER PRIMARY KEY AUTOINCREMENT", "nombreMarca TEXT","idProveedor INTEGER"])
         
-        let tblInventario = crearTabla(nombreTabla: "Inventario", campos: ["idInv INTEGER PRIMARY KEY AUTOINCREMENT", "idProducto INTEGER","tipo TEXT", "cantidad INTEGER", "cantidadEnUnidad TEXT, idTienda INTEGER"])
+        let tblInventario = crearTabla(nombreTabla: "Inventario", campos: ["idInv INTEGER PRIMARY KEY AUTOINCREMENT", "idProducto INTEGER", "cantidad INTEGER", "idTienda INTEGER"])
         
-        let tblHistorial = crearTabla(nombreTabla: "Historial", campos: ["idTransaccion INTEGER PRIMARY KEY AUTOINCREMENT", "fecha DATE","tipo TEXT","total DECIMAL"])
+        let tblHistorial = crearTabla(nombreTabla: "Historial", campos: ["idTransaccion INTEGER PRIMARY KEY AUTOINCREMENT", "fecha DATE","tipo TEXT","total DECIMAL","idTienda INTEGER"])
         
-        let tblHistorialProductos = crearTabla(nombreTabla: "HistorialProductos", campos: ["idTransaccion INTEGER", "idProducto INTEGER", "precioUnitario DECIMAL", "cantidad INTEGER"])
+        let tblHistorialProductos = crearTabla(nombreTabla: "HistorialProductos", campos: ["idTransaccion INTEGER", "idProducto INTEGER", "cantidad INTEGER"])
         
         let tblProveedores = crearTabla(nombreTabla: "Proveedores", campos: ["idProveedor INTEGER PRIMARY KEY AUTOINCREMENT", "nombreProveedor TEXT","frecuencia TEXT","idTienda INTEGER"])
         
@@ -155,6 +160,22 @@ class DataBase {
             let errmsg = String(cString: sqlite3_errmsg(basesDatos))
             print("Error Desc: \(errmsg)\n")
             return []
+        }
+    }
+    
+    func update(tabla:String,nuevosValores:String,whereClause:String)->Bool{
+        let sqlActualiza = "UPDATE \(tabla) SET \(nuevosValores) \(whereClause)"
+        print(sqlActualiza)
+        var error: UnsafeMutablePointer<Int8>? = nil
+        if sqlite3_exec(basesDatos, sqlActualiza, nil, nil, &error) == SQLITE_OK {
+
+            print("Exito al actualizar")
+            return true
+        }else{
+            print("\nError en query update")
+            let errmsg = String(cString: sqlite3_errmsg(basesDatos))
+            print("Error Desc: \(errmsg)\n")
+            return false
         }
     }
 }

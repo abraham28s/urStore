@@ -12,11 +12,12 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
     
     @IBOutlet weak var precioProductoTxt: UITextField!
     
+    @IBOutlet weak var precioVentaTxt: UITextField!
     
     @IBOutlet weak var nombreTxt: UITextField!
     @IBOutlet weak var unidadTxt: UITextField!
     @IBOutlet weak var tablaMarcas: UITableView!
-    
+    var ind:IndexPath = IndexPath()
     @IBOutlet weak var CodigoPrincipalTxt: UITextField!
     @IBOutlet weak var BotonCodigoPrincipal: UIButton!
     
@@ -30,10 +31,20 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
         tablaMarcas.dataSource = self
         tablaMarcas.allowsMultipleSelection = false
         tablaMarcas.allowsSelection = true
-        DB.inicializar()
+        if DB.inicializar(){
+            print("Exito con DB en registrar producto")
+        }
         arregloMarcas = DB.selectFrom(table: DB.marcas, columnas: "idMarca, nombreMarca")
         tablaMarcas.reloadData()
         // Do any additional setup after loading the view.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
+        // Do any additional setup after loading the view.
+    }
+    
+    func tapEnPantalla(){
+        self.view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,13 +69,14 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "2")
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "7")
         cell.textLabel?.text = arregloMarcas[indexPath.row][1]
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        ind = indexPath
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -102,16 +114,33 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
             let nombreProducto = nombreTxt.text!
             let unidadProducto = unidadTxt.text!
             let precioProducto = precioProductoTxt.text!
+            let precioVenta = precioVentaTxt.text!
             let marcaProducto = arregloMarcas[(tablaMarcas.indexPathForSelectedRow?.row)!][0]
             
-            if(!DB.insertarEnDB(tabla: DB.productos, columnas: "(nombreProducto,precioUnitario,codigoBarras,unidad,idMarca)", valores: "('\(nombreProducto)',\(precioProducto),'\(codigoProducto)','\(unidadProducto)',\(marcaProducto))")){
+            if(!DB.insertarEnDB(tabla: DB.productos, columnas: "(nombre,precioCompra,precioVenta,codigoBarras,unidad,idMarca,esCaja)", valores: "('\(nombreProducto)',\(precioProducto),\(precioVenta),'\(codigoProducto)','\(unidadProducto)',\(marcaProducto),'no')")){
                 print("Error al insertar Producto")
             }else{
                 ///
                 ///Desea Registrar Otro producto o ir a cajas o nada
                 ///
+                let alert = UIAlertController(title: "Exito", message: "El producto se ha registrado correctamente.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ir a Cajas", style: .default, handler: { action in
+                    self.irAPantallaCon(titulo: "Registro de Cajas")
+                }))
+                alert.addAction(UIAlertAction(title: "Registrar otro producto", style: .default, handler: {action in
+                    self.nombreTxt.text = ""
+                    self.precioProductoTxt.text = ""
+                    self.precioVentaTxt.text = ""
+                    self.unidadTxt.text = ""
+                    self.CodigoPrincipalTxt.text = ""
+                    self.tablaMarcas.deselectRow(at: self.ind, animated: true)
+                    self.tablaMarcas.cellForRow(at: self.ind)?.accessoryType = .none
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
             }
-            //DB.insertarEnDB(tabla: DB.productos, columnas: "(nombreProducto,precioUnitario,codigoBarras,unidad,idMarca)", valores: <#T##String#>)
+           
             
                 
         }else{
@@ -119,9 +148,46 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
         }
     }
     
+    func irAPantallaCon(titulo:String)->Void{
+        let padre = self.parent as! ViewController
+        switch titulo {
+        case "Compras":
+            padre.cambiarHijo(identif: "ingresosSB")
+            padre.tituloLbl.text = titulo
+        case "Ventas":
+            
+            
+            padre.cambiarHijo(identif: "ventasSB")
+            padre.tituloLbl.text = titulo
+        case "Inventario":
+            padre.cambiarHijo(identif: "inventarioSB")
+            padre.tituloLbl.text = titulo
+        case "Compras Sugeridas":
+            padre.cambiarHijo(identif: "comprasSugeridasSB")
+            padre.tituloLbl.text = titulo
+        case "Balance":
+            padre.cambiarHijo(identif: "balanceSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Proveedores":
+            padre.cambiarHijo(identif: "proveedoresSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Marcas":
+            padre.cambiarHijo(identif: "marcasSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Productos":
+            padre.cambiarHijo(identif: "registroSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Cajas":
+            padre.cambiarHijo(identif: "registroCajasSB")
+            padre.tituloLbl.text = titulo
+        default:
+            print("Nothing")
+        }
+    }
+    
     func ExisteCodigoBarras()->Bool{
         let codigo1 = CodigoPrincipalTxt.text!
-        let arregloConsultaProductos = DB.selectFrom(table: "Productos", columnas: "*", whereClause: "WHERE codigoBarras = \(codigo1)")
+        let arregloConsultaProductos = DB.selectFrom(table: "Productos", columnas: "*", whereClause: "WHERE codigoBarras = \(codigo1) and esCaja = 'no'")
         
         return arregloConsultaProductos.count > 0
     }
@@ -138,7 +204,10 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
             errorLog = "\(errorLog)Unidad no puede estar vacio\n"
         }
         if(precioProductoTxt.text == ""){
-            errorLog = "\(errorLog)Precio producto no puede estar vacio\n"
+            errorLog = "\(errorLog)Precio compra no puede estar vacio\n"
+        }
+        if(precioVentaTxt.text == ""){
+            errorLog = "\(errorLog)Precio venta no puede estar vacio\n"
         }
         if(tablaMarcas.indexPathForSelectedRow == nil){
             errorLog = "\(errorLog)Debe seleccionar una marca\n"

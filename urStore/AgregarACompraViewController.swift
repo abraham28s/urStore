@@ -24,20 +24,32 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
         tablaProductos.delegate = self
         tablaProductos.dataSource = self
         if DB.inicializar(){
-            print("Exito con la base en agregar a compra")
+            print("Exito con la base en agregar a transaccion")
         }
-        
-        arregloProductos = DB.selectFrom(table: DB.productos, columnas: "idProducto,nombreProducto,precioUnitario,codigoBarras")
+        if(GlobalVariables.siEsCompraEsTrue){
+            arregloProductos = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,codigoBarras,esCaja")
+        }else{
+            arregloProductos = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioVenta,codigoBarras,esCaja")
+        }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
+        self.view.addGestureRecognizer(tap)
+        tap.cancelsTouchesInView = false
         // Do any additional setup after loading the view.
     }
-
+    
+    
+    
+    func tapEnPantalla(){
+        self.view.endEditing(true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func pressHelp(_ sender: UIButton) {
-        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "1.Busca un producto con su nombre\n2.Seleccionalo en la tabla\n3.Escribe la cantidad a agregar\n4.Presiona agregar a la compra"), animated: true, completion: nil)
+        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "1.Busca un producto con su nombre\n2.Seleccionalo en la tabla\n3.Escribe la cantidad a agregar\n4.Presiona Agregar Producto"), animated: true, completion: nil)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,9 +78,16 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func agregarACompra(){
-        var papa = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! ViewController
-        var papaEspecifico = papa.currentViewController as! ComprasViewController
-        papaEspecifico.agregarACompra(producto: arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!])
+        if GlobalVariables.siEsCompraEsTrue{
+            let papa = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! ViewController
+            let papaEspecifico = papa.currentViewController as! ComprasViewController
+            papaEspecifico.agregarACompra(producto: arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!])
+        }else{
+            let papa = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! ViewController
+            let papaEspecifico = papa.currentViewController as! VentasViewController
+            papaEspecifico.agregarACompra(producto: arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!])
+        }
+        self.navigationController?.popViewController(animated: true)
 
     }
     
@@ -85,10 +104,17 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     @IBAction func nombreTxtonChange(_ sender: UITextField) {
-        let clause = "WHERE nombreProducto like '\(sender.text!)%'"
-        arregloProductos = DB.selectFrom(table: DB.productos, columnas: "idProducto,nombreProducto,precioUnitario,codigoBarras", whereClause: clause)
+        let clause = "WHERE nombre like '\(sender.text!)%'"
+        if(GlobalVariables.siEsCompraEsTrue){
+            arregloProductos = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,codigoBarras,esCaja", whereClause: clause)
+        }else{
+            arregloProductos = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioVenta,codigoBarras,esCaja", whereClause: clause)
+        }
+        
         tablaProductos.reloadData()
     }
+    
+    
     
 
 }

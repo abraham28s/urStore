@@ -11,4 +11,6 @@ import Foundation
 
 struct GlobalVariables {
     static var idTienda = ""
+    static var siEsCompraEsTrue:Bool = false
+    static var error = "Error"
 }

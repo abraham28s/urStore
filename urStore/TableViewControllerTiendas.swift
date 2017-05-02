@@ -70,7 +70,7 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ind = indexPath.row
         GlobalVariables.idTienda = arregloTiendas[indexPath.row][0]
-        print(GlobalVariables.idTienda)
+        //print(GlobalVariables.idTienda)
         performSegue(withIdentifier: "entrarATienda", sender: nil)
     }
     

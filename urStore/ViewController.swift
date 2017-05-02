@@ -26,7 +26,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var tapPantalla = UITapGestureRecognizer()
     
     let ArregloSecciones = ["Movimientos","Información","Finanzas","Más"]
-    let ArregloColumnas = [["Ventas","Compras"],["Inventario","Compras Sugeridas"],["Balance"],["Proveedores","Marcas","Registro de Productos","Registro de Cajas"]]
+    let ArregloColumnas = [["Ventas","Compras"],["Inventario"/*,"Compras Sugeridas"*/],["Balance"],["Proveedores","Marcas","Registro de Productos","Registro de Cajas"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,9 +156,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             case 0:
                 cambiarHijo(identif: "inventarioSB")
                 tituloLbl.text = "Inventario"
-            case 1:
+            /*case 1:
                 cambiarHijo(identif: "comprasSugeridasSB")
-                tituloLbl.text = "Compras Sugeridas"
+                tituloLbl.text = "Compras Sugeridas"*/
             default:
                  print("nothing")
             }

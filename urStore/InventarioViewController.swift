@@ -8,27 +8,35 @@
 
 import UIKit
 
-class InventarioViewController:  UIViewController,UITableViewDelegate,UITableViewDataSource  {
-
-    @IBOutlet weak var TFCantidad: UITextField!
-    @IBOutlet weak var StepperCantidad: UIStepper!
-    @IBOutlet weak var TablaProductos: UITableView!
-    let ArregloProductos = [[1,"Coca-Cola",4,32.00],[2,"Pepsi",2,16.00],[3,"Fanta",6,48.00]]
+class InventarioViewController:  UIViewController,UITableViewDelegate,UITableViewDataSource,BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate, BarcodeScannerDismissalDelegate  {
+    
+    @IBOutlet weak var tablaProductos: UITableView!
+    @IBOutlet weak var codigoTxt: UITextField!
+    @IBOutlet weak var nombreTxt: UITextField!
+    var scan = BarcodeScannerController()
+    let DB:DataBase = DataBase()
+    var Arreglo:[[String]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        TablaProductos.delegate = self
-        TablaProductos.dataSource = self
-        
-        
+        if DB.inicializar(){
+            print("Exito con base en Inventario")
+        }
+        let clause = "WHERE a.idProducto = b.id and b.esCaja = 'no'"
+        Arreglo = DB.selectFrom(table: "\(DB.inventario) a, \(DB.productos) b", columnas: "a.idProducto,a.cantidad,b.nombre,b.precioVenta", whereClause: clause)
+        tablaProductos.delegate = self
+        tablaProductos.dataSource = self
+        // Do any additional setup after loading the view.
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
     }
-
-    @IBAction func CambiaValorStepper(_ sender: Any) {
-        TFCantidad.text = String(Int((sender as! UIStepper).value))
-    }
     
+    func tapEnPantalla(){
+        self.view.endEditing(true)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -37,13 +45,46 @@ class InventarioViewController:  UIViewController,UITableViewDelegate,UITableVie
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    @IBAction func pressCamera(_ sender: Any) {
+        scan.reset()
+        scan.errorDelegate = self
+        scan.dismissalDelegate = self
+        scan.codeDelegate = self
+        present(scan, animated: true,completion:nil)
+    }
     
+    func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
+        scan.dismiss(animated: true, completion: nil)
+        
+        codigoTxt.text = code
+        
+        
+    }
+    
+    func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
+        print("Error al capturar codigo")
+    }
+    func barcodeScannerDidDismiss(_ controller: BarcodeScannerController) {
+        scan.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func codigoChange(_ sender: UITextField) {
+        let clause = "WHERE a.idProducto = b.id AND b.esCaja = 'no' AND b.codigoBarras like '\(sender.text!)%'"
+        Arreglo = DB.selectFrom(table: "\(DB.inventario) a, \(DB.productos) b", columnas: "a.idProducto,a.cantidad,b.nombre,b.precioVenta", whereClause: clause)
+        tablaProductos.reloadData()
+    }
+    
+    @IBAction func nombreChange(_ sender: UITextField) {
+        let clause = "WHERE a.idProducto = b.id AND b.esCaja = 'no' AND b.nombre like '\(sender.text!)%'"
+        Arreglo = DB.selectFrom(table: "\(DB.inventario) a, \(DB.productos) b", columnas: "a.idProducto,a.cantidad,b.nombre,b.precioVenta", whereClause: clause)
+        tablaProductos.reloadData()
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ArregloProductos.count
+        return Arreglo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = CeldaProForProductTables(nombre: Arreglo[indexPath.row][2], cantidad: Arreglo[indexPath.row][1], precio: Arreglo[indexPath.row][3])
         
         return cell
     }

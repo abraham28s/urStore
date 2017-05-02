@@ -34,7 +34,13 @@ class AgregarTiendaViewController: UIViewController {
         if(nombreTxt.text != ""){
             if(DB.inicializar()){
                 if(DB.insertarEnDB(tabla: "Tiendas", columnas: "(nombreTienda)", valores: "('\(nombreTxt.text!)')")){
-                    self.navigationController?.popToRootViewController(animated: true);
+                    let alert = UIAlertController(title: "Exito", message: "La tienda se registro con exito.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (alerr) in
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    
                 }else{
                     print("Error al insertar nueva tienda");
                 }

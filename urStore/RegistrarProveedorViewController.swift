@@ -17,7 +17,9 @@ class RegistrarProveedorViewController: UIViewController, UIPickerViewDelegate, 
     let DB:DataBase = DataBase()
     override func viewDidLoad() {
         super.viewDidLoad()
-        DB.inicializar()
+        if DB.inicializar(){
+            print("Exito con DB en registrar proveedores")
+        }
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
         self.view.addGestureRecognizer(tap)
         frecuenciaTxt.text = "\(arregloFrecuencia[0][frecuenciaSelector.selectedRow(inComponent: 0)]) \(arregloFrecuencia[1][frecuenciaSelector.selectedRow(inComponent: 1)])"
@@ -49,6 +51,57 @@ class RegistrarProveedorViewController: UIViewController, UIPickerViewDelegate, 
             ///
             ///Desea Registrar Otro proveedor o ir a marcas o nada
             ///
+            
+            let alert = UIAlertController(title: "Exito", message: "El proveedor se ha registrado con exito.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ir a Marcas", style: .default, handler: { action in
+                self.irAPantallaCon(titulo: "Registro de Marcas")
+            }))
+            alert.addAction(UIAlertAction(title: "Registrar otro proveedor", style: .default, handler: { action in
+                self.nombreTxt.text = ""
+                self.frecuenciaTxt.text = ""
+                self.frecuenciaSelector.selectRow(0, inComponent: 0, animated: true)
+                self.frecuenciaSelector.selectRow(0, inComponent: 1, animated: true)
+                self.frecuenciaTxt.text = "\(self.arregloFrecuencia[0][self.frecuenciaSelector.selectedRow(inComponent: 0)]) \(self.arregloFrecuencia[1][self.frecuenciaSelector.selectedRow(inComponent: 1)])"
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func irAPantallaCon(titulo:String)->Void{
+        let padre = self.parent as! ViewController
+        switch titulo {
+        case "Compras":
+            padre.cambiarHijo(identif: "ingresosSB")
+            padre.tituloLbl.text = titulo
+        case "Ventas":
+            
+            
+            padre.cambiarHijo(identif: "ventasSB")
+            padre.tituloLbl.text = titulo
+        case "Inventario":
+            padre.cambiarHijo(identif: "inventarioSB")
+            padre.tituloLbl.text = titulo
+        case "Compras Sugeridas":
+            padre.cambiarHijo(identif: "comprasSugeridasSB")
+            padre.tituloLbl.text = titulo
+        case "Balance":
+            padre.cambiarHijo(identif: "balanceSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Proveedores":
+            padre.cambiarHijo(identif: "proveedoresSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Marcas":
+            padre.cambiarHijo(identif: "marcasSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Productos":
+            padre.cambiarHijo(identif: "registroSB")
+            padre.tituloLbl.text = titulo
+        case "Registro de Cajas":
+            padre.cambiarHijo(identif: "registroCajasSB")
+            padre.tituloLbl.text = titulo
+        default:
+            print("Nothing")
         }
     }
     

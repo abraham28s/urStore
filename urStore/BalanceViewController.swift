@@ -13,21 +13,26 @@ class BalanceViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var TablaSalidas: UITableView!
     
     @IBOutlet weak var TotalTF: UITextField!
-    
+    let DB:DataBase = DataBase()
     @IBOutlet weak var TablaEntradas: UITableView!
-    var ArregloEntradas = [39.23,46.03,52.89]
-    var ArregloSalidas = [34.23,45.03,56.89,34.90,13.98]
+    var ArregloEntradas:[[String]] = []
+    var ArregloSalidas:[[String]] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if DB.inicializar(){
+            print("Exito con base en balance")
+        }
+        ArregloEntradas = DB.selectFrom(table: DB.historial, columnas: "total", whereClause: "WHERE idTienda = \(GlobalVariables.idTienda) AND tipo = 'Venta'")
+        ArregloSalidas = DB.selectFrom(table: DB.historial, columnas: "total", whereClause: "WHERE idTienda = \(GlobalVariables.idTienda) AND tipo = 'Compra'")
+        print(ArregloSalidas)
         // Do any additional setup after loading the view.
         var total = 0.0
         for monto in ArregloEntradas {
-            total += monto
+            total += Double(monto[0])!
         }
         
         for monto in ArregloSalidas {
-            total -= monto
+            total -= Double(monto[0])!
         }
         
         TotalTF?.text = String(total)
@@ -62,9 +67,9 @@ class BalanceViewController: UIViewController, UITableViewDataSource, UITableVie
         // #warning Incomplete implementation, return the number of rows
         switch tableView {
         case TablaSalidas:
-            return 5
+            return ArregloSalidas.count
         case TablaEntradas:
-            return 3
+            return ArregloEntradas.count
         default:
             return 0
         }
@@ -75,10 +80,11 @@ class BalanceViewController: UIViewController, UITableViewDataSource, UITableVie
         
         switch tableView {
         case TablaSalidas:
-            cell.textLabel?.text = String(ArregloSalidas[indexPath.row])
+            print(indexPath.row)
+            cell.textLabel?.text = "-\(String(describing: ArregloSalidas[indexPath.row][0]))"
             cell.textLabel?.textColor = UIColor.red
         case TablaEntradas:
-            cell.textLabel?.text = String(ArregloEntradas[indexPath.row])
+            cell.textLabel?.text = "+\(String(describing: String(ArregloEntradas[indexPath.row][0])))"
             cell.textLabel?.textColor = UIColor.green
         default:
             return cell
