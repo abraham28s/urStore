@@ -139,7 +139,7 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     let DB:DataBase = DataBase()
 
     @IBAction func presHelp(_ sender: Any) {
-        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el símbolo de mas agrega productos y procesa la compra."), animated: true, completion: nil)
+        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el símbolo de ➕ agrega productos y procesa la compra."), animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
