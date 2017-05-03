@@ -110,6 +110,35 @@ class DataBase {
         return true
     }
     
+    func insertarRawQuery(query:String)->Bool{
+        let sqlInserta = query
+        var error: UnsafeMutablePointer<Int8>? = nil
+        print(sqlInserta)
+        if sqlite3_exec(basesDatos, sqlInserta, nil, nil, &error) != SQLITE_OK {
+            print("\nError en query insera")
+            let errmsg = String(cString: sqlite3_errmsg(basesDatos))
+            print("Error Desc: \(errmsg)\n")
+            return false
+        }
+        return true
+    }
+    
+    func updateRawQuery(query:String)->Bool{
+        let sqlActualiza = query
+        print(sqlActualiza)
+        var error: UnsafeMutablePointer<Int8>? = nil
+        if sqlite3_exec(basesDatos, sqlActualiza, nil, nil, &error) == SQLITE_OK {
+            
+            print("Exito al actualizar")
+            return true
+        }else{
+            print("\nError en query update")
+            let errmsg = String(cString: sqlite3_errmsg(basesDatos))
+            print("Error Desc: \(errmsg)\n")
+            return false
+        }
+    }
+    
     func selectOneColumToVector(tabla: String, columna: String, whereClause: String = "")->[String]{
         let sqlConsulta = "SELECT \(columna) FROM \(tabla) \(whereClause)"
         print(sqlConsulta)

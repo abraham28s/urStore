@@ -37,6 +37,7 @@
 		D3C634741E53898900B51A5A /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634731E53898900B51A5A /* BalanceViewController.swift */; };
 		D3C634781E53993000B51A5A /* CeldaProForProductTables.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */; };
 		D3C6347A1E53B19B00B51A5A /* InventarioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C634791E53B19B00B51A5A /* InventarioViewController.swift */; };
+		D3E5561C1EBA1DC200552458 /* ProcesarPagoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E5561B1EBA1DC200552458 /* ProcesarPagoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		D3C634731E53898900B51A5A /* BalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		D3C634771E53993000B51A5A /* CeldaProForProductTables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CeldaProForProductTables.swift; sourceTree = "<group>"; };
 		D3C634791E53B19B00B51A5A /* InventarioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventarioViewController.swift; sourceTree = "<group>"; };
+		D3E5561B1EBA1DC200552458 /* ProcesarPagoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcesarPagoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 				D361BAD81EB2696300E5AAE1 /* ComprasViewController.swift */,
 				D3C634791E53B19B00B51A5A /* InventarioViewController.swift */,
 				D361BADC1EB5B21900E5AAE1 /* VentasViewController.swift */,
+				D3E5561B1EBA1DC200552458 /* ProcesarPagoViewController.swift */,
 			);
 			path = urStore;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				D361DDC21EAE702600332D2C /* AgregarTiendaViewController.swift in Sources */,
 				D3A0732D1E785CA5003FA369 /* puente.m in Sources */,
 				D3C634781E53993000B51A5A /* CeldaProForProductTables.swift in Sources */,
+				D3E5561C1EBA1DC200552458 /* ProcesarPagoViewController.swift in Sources */,
 				D3835D6D1E4ABFD900A148B5 /* ViewController.swift in Sources */,
 				D31735621E81F2F900652286 /* HeaderView.swift in Sources */,
 				D361BAD91EB2696300E5AAE1 /* ComprasViewController.swift in Sources */,
@@ -518,7 +522,7 @@
 				DEVELOPMENT_TEAM = UJDY9YHJ79;
 				INFOPLIST_FILE = urStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mx.rmr.INventario;
+				PRODUCT_BUNDLE_IDENTIFIER = Soto.urStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "urStore/urStore-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -534,7 +538,7 @@
 				DEVELOPMENT_TEAM = UJDY9YHJ79;
 				INFOPLIST_FILE = urStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mx.rmr.INventario;
+				PRODUCT_BUNDLE_IDENTIFIER = Soto.urStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "urStore/urStore-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

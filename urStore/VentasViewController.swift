@@ -9,79 +9,68 @@
 import UIKit
 
 class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, BarcodeScannerErrorDelegate,BarcodeScannerDismissalDelegate,UITableViewDelegate,UITableViewDataSource {
-    
+    var ArregloQuerysInsertar:[String] = []
+    var ArregloQuerysStocks:[String] = []
     @IBOutlet weak var tabla: UITableView!
     @IBOutlet weak var totalTxt: UITextField!
     
-    @IBAction func pressGuardarVenta(_ sender: Any) {
-        //Modificación inventario
-        //Recorremos los productos
-        var banderaExito = true
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         for arr in Arreglo {
             //Vemos si existe el producto
-            if(existeProducto(id: arr[0])){
-                //Update
-                // checamos si es caja
-                if(arr[4] == "no"){
-                    //Si no es caja no hay problam
-                    if(!quitarStock(id: arr[0], cantidadNueva: arr[5])){
-                        banderaExito = false
-                    }
-                }else{
-                    ///Implementar como caja y checar dos opciones, el producto existe o no
-                    let datosCaja = DB.selectFrom(table: DB.cajas, columnas: "idProducto,cantidadEnCaja",whereClause: "idCaja = \(arr[0])")
-                    //Producto si existe
-                    if(existeProducto(id: datosCaja[0][0])){
-                        if(!quitarStock(id: arr[0], cantidadNueva: arr[5]) && !quitarStock(id: datosCaja[0][0], cantidadNueva: datosCaja[0][1])){
-                            banderaExito = false
-                        }
-                    }else{
-                        //El producto no tiene Stock ir a compras
-                        let alert = UIAlertController(title: "Error", message: "El producto no tiene stock.", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Ir a compras", style: .default, handler: { (action) in
-                            self.irAPantallaCon(titulo: "Compras")
-                        }))
-                        alert.addAction(UIAlertAction(title: "Intentar de nuevo", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                        
-                    }
-                    
-                    
-                }
-            }else{
-                //El producto no tiene stock, ir a compras
+            //Checamos si es caja
+            let cantidadActual = DB.selectFrom(table: DB.inventario, columnas: "cantidad", whereClause: "WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)")[0][0]
+            if(arr[4] == "si"){
+                //Es caja, se debe quitar cantidad de stock, y cantidadEnCaja de stock de producto
                 
+                
+                let QueryStockCaja = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActual)! - Int(arr[5])!) WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)"
+                var cajaData = DB.selectFrom(table: DB.cajas, columnas: "idProducto,cantidadEnCaja",whereClause: "WHERE idCaja = \(arr[0])")
+                
+                let cantidadActualProducto = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(cajaData[0][0])")[0][0]
+                
+                let QueryStockProd = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActualProducto)! - Int(cajaData[0][1])!) WHERE idProducto = \(cajaData[0][0]) AND idTienda = \(GlobalVariables.idTienda)"
+                
+                ArregloQuerysStocks.append(QueryStockCaja)
+                ArregloQuerysStocks.append(QueryStockProd)
+                //Query para quitar producto
+            }else{
+                //Es producto, se quita cantidad de stock
+                let QueryStockProd = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActual)! - Int(arr[5])!) WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)"
+                ArregloQuerysStocks.append(QueryStockProd)
             }
         }
+        
+        
+        
         let date = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
         let result = formatter.string(from: date)
         //Modificacion historial
-        if !DB.insertarEnDB(tabla: DB.historial, columnas: "(fecha,tipo,total,idTienda)" , valores: "('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))"){
-            banderaExito = false
-        }
-        //Modificación historial producto
+        /*if !DB.insertarEnDB(tabla: DB.historial, columnas: "(fecha,tipo,total,idTienda)" , valores: "('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))"){
+         banderaExito = false
+         }
+         //Modificación historial producto
+         let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
+         */
+        
+        ArregloQuerysStocks.append("INSERT INTO \(DB.historial) (fecha,tipo,total,idTienda) VALUES ('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))")
         let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
         
         for arr in Arreglo {
-            if !DB.insertarEnDB(tabla: DB.historialProductos, columnas: "(idTransaccion,idProducto,cantidad)", valores: "(\(idHistorial),\(arr[0]),\(arr[5]))"){
-                banderaExito = false
+            ArregloQuerysStocks.append("INSERT INTO \(DB.historialProductos) (idTransaccion,idProducto,cantidad) VALUES (\(idHistorial),\(arr[0]),\(arr[5]))")
+        }
+        if(segue.identifier == "procesarPagoSegue"){
+            if let vc = segue.destination as? ProcesarPagoViewController{
+                
+                vc.ArregloUpdates = self.ArregloQuerysStocks
+                vc.ArregloInserts = self.ArregloQuerysInsertar
+                vc.total = totalTxt.text!
             }
         }
+
         
-        if(banderaExito){
-            //La compra ha sigo guardada con Exito
-            let alert = UIAlertController(title: "Éxito", message: "La compra se ha guardado correctamente", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Realizar otra compra", style: .default, handler: { (action) in
-                self.totalTxt.text = "0.0"
-                self.Arreglo = []
-                self.tabla.reloadData()
-            }))
-            self.present(alert, animated: true, completion: nil)
-        }else{
-            print("Error en la venta")
-        }
     }
     
     func existeProducto(id : String)->Bool{
@@ -123,16 +112,6 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
         }
     }
     
-    
-    
-    func quitarStock(id:String,cantidadNueva:String)->Bool{
-        let cantidadActual = DB.selectFrom(table: DB.inventario, columnas: "cantidad", whereClause: "WHERE idProducto = \(id) AND idTienda = \(GlobalVariables.idTienda)")[0][0]
-        
-        if DB.update(tabla: DB.inventario, nuevosValores: "cantidad = \(Int(cantidadActual)! - Int(cantidadNueva)!)", whereClause: "WHERE idProducto = \(id) AND idTienda = \(GlobalVariables.idTienda)"){
-            return true
-        }
-        return false
-    }
 
     var scan = BarcodeScannerController()
     var Arreglo:[[String]] = []
@@ -165,11 +144,12 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     override func viewWillAppear(_ animated: Bool) {
         tabla.reloadData()
         actualizarTotal()
+        
     }
     func actualizarTotal(){
         var acu = 0.00
         for arr in Arreglo {
-            acu = acu + (Double(arr[4])! * Double(arr[2])!)
+            acu = acu + (Double(arr[5])! * Double(arr[2])!)
         }
         
         totalTxt.text = "\(acu)"
@@ -181,7 +161,9 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     }
     
     func agregarACompra(producto:[String]){
+        
         self.Arreglo.append(producto)
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -193,8 +175,8 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let total = Double(Arreglo[indexPath.row][4])! * Double(Arreglo[indexPath.row][2])!
-        let cell = CeldaProForProductTables(nombre: Arreglo[indexPath.row][1], cantidad: Arreglo[indexPath.row][4], precio: "\(total)")
+        let total = Double(Arreglo[indexPath.row][5])! * Double(Arreglo[indexPath.row][2])!
+        let cell = CeldaProForProductTables(nombre: Arreglo[indexPath.row][1], cantidad: Arreglo[indexPath.row][5], precio: "\(total)")
         
         return cell
     }
@@ -207,9 +189,34 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
         present(scan, animated: true,completion:nil)
     }
     
+    @IBAction func pressCameras(_ sender: Any) {
+        scan.reset()
+        scan.errorDelegate = self
+        scan.dismissalDelegate = self
+        scan.codeDelegate = self
+        present(scan, animated: true,completion:nil)
+    }
+    
     //////////Protocolos
     func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
-        print(code)
+        scan.dismiss(animated: true, completion: nil)
+        let id = DB.selectFrom(table: DB.productos, columnas: "id",whereClause: "WHERE codigoBarras = '\(code)'")[0][0]
+        
+        if(Int(DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(id)")[0][0])!>0){
+            var producto = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,codigoBarras,esCaja",whereClause: "WHERE codigoBarras ='\(code)'")
+            
+            producto[0].append("1")
+            print(producto)
+            agregarACompra(producto: producto[0])
+        }else{
+            let alert = UIAlertController(title: "Error", message: "El producto no tiene stock.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ir a Compras", style: .default, handler: { (action) in
+                self.irAPantallaCon(titulo: "Compras")
+            }))
+            alert.addAction(UIAlertAction(title: "Intentar otra vez", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
     }
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
         print("Error al capturar código")
@@ -227,6 +234,7 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
             // handle delete (by removing the data from your array and updating the tableview)
             Arreglo.remove(at: indexPath.row)
             tabla.deleteRows(at: [indexPath], with: .fade)
+            actualizarTotal()
         }
     }
     

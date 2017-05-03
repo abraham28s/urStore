@@ -26,7 +26,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var tapPantalla = UITapGestureRecognizer()
     
     let ArregloSecciones = ["Movimientos","Información","Finanzas","Más"]
-    let ArregloColumnas = [[/*"Ventas",*/"Compras"],["Inventario"/*,"Compras Sugeridas"*/],["Balance"],["Proveedores","Marcas","Registro de Productos","Registro de Cajas"]]
+    let ArregloColumnas = [["Ventas","Compras"],["Inventario"/*,"Compras Sugeridas"*/],["Balance"],["Proveedores","Marcas","Registro de Productos","Registro de Cajas"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.view.isExclusiveTouch = false
         contenedor.isUserInteractionEnabled = true
         
-        self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ingresosSB") as UIViewController
+        self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
         self.displayContentController(content: self.currentViewController!)
         
         
@@ -140,10 +140,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         case 0:
             
             switch indexPath.row {
-            /*case 0:
-                cambiarHijo(identif: "ventasSB")
-                tituloLbl.text = "Ventas"*/
             case 0:
+                cambiarHijo(identif: "ventasSB")
+                tituloLbl.text = "Ventas"
+            case 1:
                 cambiarHijo(identif: "ingresosSB")
                 tituloLbl.text = "Compras"
             default:

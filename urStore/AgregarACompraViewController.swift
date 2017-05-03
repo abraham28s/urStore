@@ -66,10 +66,16 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        codigoTxt.text = arregloProductos[indexPath.row][1]
+    }
+    
     @IBAction func pressAgregar(_ sender: UIButton) {
+        
         let tupla = validaCampos()
         if(tupla.valida){
             arregloProductos[tablaProductos.indexPathForSelectedRow!.row].append(cantidadTxt.text!)
+            
             agregarACompra()
         }else{
             self.present(DB.alertaDefault(titulo: "Error", texto: tupla.errorLog), animated: true, completion: nil)
@@ -83,9 +89,11 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
             let papaEspecifico = papa.currentViewController as! ComprasViewController
             papaEspecifico.agregarACompra(producto: arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!])
         }else{
+            
             let papa = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-2] as! ViewController
             let papaEspecifico = papa.currentViewController as! VentasViewController
             papaEspecifico.agregarACompra(producto: arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!])
+            
         }
         self.navigationController?.popViewController(animated: true)
 
@@ -98,6 +106,53 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
         }
         if(cantidadTxt.text == ""){
             errorLog = "\(errorLog)Cantidad no puede estar vacío\n"
+        }
+        
+        if(!GlobalVariables.siEsCompraEsTrue){
+            //Checar que cantidad sea menor que stock
+            let idProducto = arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!][0]
+            
+            
+            
+            if(arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!][4] == "si"){
+                let cantidadActualArr = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(idProducto)")
+                var cantidadActual = 0
+                if(cantidadActualArr.isEmpty){
+                    cantidadActual = 0
+                }else{
+                    cantidadActual = Int(cantidadActualArr[0][0])!
+                }
+                
+                if(Int(cantidadTxt.text!)! > cantidadActual){
+                    errorLog = "\(errorLog)Cantidad no puede ser mayor que el stock actual, stock actual: \(cantidadActual)\n"
+                }
+                //Checar si los productos existen
+                //Con id caja sacamos id producto y piezas
+                let cajaData = DB.selectFrom(table: DB.cajas, columnas: "idProducto, cantidadEnCaja",whereClause: "WHERE idCaja = \(idProducto)")
+                
+                let cantidadActualProdArr = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(cajaData[0][0])")
+                var cantidadActualProd = 0
+                if(cantidadActualProdArr.isEmpty){
+                    cantidadActualProd = 0
+                }else{
+                    cantidadActualProd = Int(cantidadActualProdArr[0][0])!
+                }
+                if(Int(cajaData[0][1])! > cantidadActualProd){
+                    errorLog = "\(errorLog)Cantidad que contiende la caja es mayor al stock actual del producto, stock actual: \(cantidadActualProd)\n"
+                }
+            }else{
+                let cantidadActualArr = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(idProducto)")
+                var cantidadActual = 0
+                if(cantidadActualArr.isEmpty){
+                    cantidadActual = 0
+                }else{
+                    cantidadActual = Int(cantidadActualArr[0][0])!
+                }
+                
+                if(Int(cantidadTxt.text!)! > cantidadActual){
+                    errorLog = "\(errorLog)Cantidad no puede ser mayor que el stock actual, stock actual: \(cantidadActual)\n"
+                }
+            }
         }
         
         return (errorLog == "",errorLog)

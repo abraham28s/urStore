@@ -237,10 +237,13 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
     //////////Protocolos
     func barcodeScanner(_ controller: BarcodeScannerController, didCaptureCode code: String, type: String) {
         scan.dismiss(animated: true, completion: nil)
-        if(DB.selectFrom(table: DB.productos, columnas: "*",whereClause: "WHERE codigoBarras = '\(code)'").count > 0){
-            var producto = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,esCaja",whereClause: "WHERE codigoBarras ='\(code)'")
-            //producto[0].append("1")
-            //agregarACompra(producto: producto[0])
+        
+        if(DB.selectFrom(table: DB.productos, columnas: "id",whereClause: "WHERE codigoBarras = '\(code)'").count > 0){
+            var producto = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,codigoBarras,esCaja",whereClause: "WHERE codigoBarras ='\(code)'")
+            
+            producto[0].append("1")
+            print(producto)
+            agregarACompra(producto: producto[0])
         }else{
             let alert = UIAlertController(title: "Error", message: "El producto no esta registrado.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ir a Registro de producto", style: .default, handler: { (action) in
@@ -268,6 +271,7 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
             // handle delete (by removing the data from your array and updating the tableview)
             Arreglo.remove(at: indexPath.row)
             tabla.deleteRows(at: [indexPath], with: .fade)
+            actualizarTotal()
         }
     }
     
