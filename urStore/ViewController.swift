@@ -17,7 +17,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var tablaMenu:UITableView = UITableView()
     @IBOutlet weak var botonMenu: UIButton!
     var menuMostrado = false
-    var currentViewController: UIViewController?
+    var currentViewController: UIViewController? = nil
     @IBOutlet weak var contenedor: UIView!
     
     @IBOutlet weak var tituloLbl: UILabel!
@@ -58,8 +58,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.view.isExclusiveTouch = false
         contenedor.isUserInteractionEnabled = true
         
-        self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
-        self.displayContentController(content: self.currentViewController!)
+        /*/self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
+        self.displayContentController(content: self.currentViewController!)*/
+        self.cambiarHijo(identif: "ventasSB")
         
         
         super.viewDidLoad()
@@ -195,7 +196,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func cambiarHijo(identif: String){
-        hideContentController(content: self.currentViewController!)
+        if(self.currentViewController != nil){
+            hideContentController(content: self.currentViewController!)
+        }
+        
         self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identif) as UIViewController
         self.displayContentController(content: self.currentViewController!)
     }

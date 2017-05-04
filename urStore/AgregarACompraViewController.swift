@@ -35,8 +35,8 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
         self.view.addGestureRecognizer(tap)
         tap.cancelsTouchesInView = false
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         // Do any additional setup after loading the view.
     }
@@ -59,13 +59,16 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
             scrollView.scrollIndicatorInsets = contentInsets
             var aRect:CGRect = self.view.frame;
             aRect.size.height -= kbSize.height;
-            if (!aRect.contains((activeField?.frame.origin)!) ) {
-                self.scrollView.scrollRectToVisible((activeField?.frame)!, animated: true)
+            //print(activeField?.frame.origin)
+            print(aRect.contains((activeField?.frame.origin)!))
+            
+            if (activeField == cantidadTxt){
+                self.view.frame.origin.y -= keyboardSize.height
             }
             /*if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
+             
             }*/
-            }
+        }
     }
     
     func keyboardWillHide(notification: NSNotification) {

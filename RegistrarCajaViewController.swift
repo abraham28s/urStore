@@ -22,6 +22,9 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
     @IBOutlet weak var botonPrincipal: UIButton!
     @IBOutlet weak var botonSecundario: UIButton!
     var botonPressed: UIButton = UIButton()
+    var activeField:UITextField? = nil
+
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +35,48 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapEnPantalla))
         self.view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        // Do any additional setup after loading the view.
+    }
+    @IBAction func txtGetFocus(_ sender: UITextField) {
+        activeField = sender
+    }
+    
+    @IBAction func txtLostFocus(_ sender: UITextField) {
+        activeField = nil
+    }
+    
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            let kbSize = keyboardSize.size
+            let contentInsets:UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0)
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+            var aRect:CGRect = self.view.frame;
+            aRect.size.height -= kbSize.height;
+            //print(activeField?.frame.origin)
+            print(aRect.contains((activeField?.frame.origin)!))
+            
+            if ((activeField == nombreTxt || activeField == piezasTxt || activeField == CodigoSecundarioTxt) && self.view.frame.origin.y == 0){
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+            /*if self.view.frame.origin.y == 0{
+             
+             }*/
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
     }
     
     func tapEnPantalla(){
