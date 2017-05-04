@@ -99,6 +99,7 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
         //Modificación inventario
         //Recorremos los productos
         var banderaExito = true
+        if(!Arreglo.isEmpty){
         for arr in Arreglo {
             //Vemos si existe el producto
             if(existeProducto(id: arr[0])){
@@ -183,6 +184,9 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
             self.present(alert, animated: true, completion: nil)
         }else{
             print("Error en la compra")
+            }
+        }else{
+            self.present(DB.alertaDefault(titulo: GlobalVariables.error, texto: "Para poder proceder con la compra debe haber al menos un producto en la misma."), animated: true, completion: nil)
         }
     }
     

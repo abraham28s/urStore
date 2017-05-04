@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,21 +22,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoITESM" translatesAutoresizingMaskIntoConstraints="NO" id="MCr-aJ-TdV">
-                                <rect key="frame" x="21" y="284" width="333" height="99"/>
+                                <rect key="frame" x="43.5" y="284" width="288" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="HKZ-O5-Mpf"/>
+                                    <constraint firstAttribute="height" constant="99" id="b0m-o0-DjJ"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Kbn-kL-FEQ"/>
-                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hIl-fk-Pu7"/>
-                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="5" id="plI-J7-HEF"/>
-                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="264" id="vj6-21-y8f"/>
+                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="63j-9w-PZs"/>
+                            <constraint firstItem="MCr-aJ-TdV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Fje-Ld-VPd"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="50.625" y="373.94366197183098"/>
         </scene>
     </scenes>
     <resources>

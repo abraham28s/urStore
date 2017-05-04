@@ -16,6 +16,24 @@ class ProcesarPagoViewController: UIViewController {
     var ArregloInserts:[String] = []
     let DB:DataBase = DataBase()
     var total="0.00"
+    
+    init(total:String,aup:[String],ain:[String]) {
+        
+        self.total = total
+        self.ArregloUpdates = aup
+        self.ArregloInserts = ain
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    required init?(coder aDecoder: NSCoder){
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if DB.inicializar(){
