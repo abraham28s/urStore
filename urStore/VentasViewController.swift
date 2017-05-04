@@ -16,52 +16,53 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        for arr in Arreglo {
-            //Vemos si existe el producto
-            //Checamos si es caja
-            let cantidadActual = DB.selectFrom(table: DB.inventario, columnas: "cantidad", whereClause: "WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)")[0][0]
-            if(arr[4] == "si"){
-                //Es caja, se debe quitar cantidad de stock, y cantidadEnCaja de stock de producto
-                
-                
-                let QueryStockCaja = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActual)! - Int(arr[5])!) WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)"
-                var cajaData = DB.selectFrom(table: DB.cajas, columnas: "idProducto,cantidadEnCaja",whereClause: "WHERE idCaja = \(arr[0])")
-                
-                let cantidadActualProducto = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(cajaData[0][0])")[0][0]
-                
-                let QueryStockProd = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActualProducto)! - Int(cajaData[0][1])!) WHERE idProducto = \(cajaData[0][0]) AND idTienda = \(GlobalVariables.idTienda)"
-                
-                ArregloQuerysStocks.append(QueryStockCaja)
-                ArregloQuerysStocks.append(QueryStockProd)
-                //Query para quitar producto
-            }else{
-                //Es producto, se quita cantidad de stock
-                let QueryStockProd = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActual)! - Int(arr[5])!) WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)"
-                ArregloQuerysStocks.append(QueryStockProd)
-            }
-        }
         
-        
-        
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        let result = formatter.string(from: date)
-        //Modificacion historial
-        /*if !DB.insertarEnDB(tabla: DB.historial, columnas: "(fecha,tipo,total,idTienda)" , valores: "('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))"){
-         banderaExito = false
-         }
-         //Modificación historial producto
-         let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
-         */
-        
-        ArregloQuerysStocks.append("INSERT INTO \(DB.historial) (fecha,tipo,total,idTienda) VALUES ('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))")
-        let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
-        
-        for arr in Arreglo {
-            ArregloQuerysStocks.append("INSERT INTO \(DB.historialProductos) (idTransaccion,idProducto,cantidad) VALUES (\(idHistorial),\(arr[0]),\(arr[5]))")
-        }
         if(segue.identifier == "procesarPagoSegue"){
+            for arr in Arreglo {
+                //Vemos si existe el producto
+                //Checamos si es caja
+                let cantidadActual = DB.selectFrom(table: DB.inventario, columnas: "cantidad", whereClause: "WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)")[0][0]
+                if(arr[4] == "si"){
+                    //Es caja, se debe quitar cantidad de stock, y cantidadEnCaja de stock de producto
+                    
+                    
+                    let QueryStockCaja = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActual)! - Int(arr[5])!) WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)"
+                    var cajaData = DB.selectFrom(table: DB.cajas, columnas: "idProducto,cantidadEnCaja",whereClause: "WHERE idCaja = \(arr[0])")
+                    
+                    let cantidadActualProducto = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(cajaData[0][0])")[0][0]
+                    
+                    let QueryStockProd = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActualProducto)! - Int(cajaData[0][1])!) WHERE idProducto = \(cajaData[0][0]) AND idTienda = \(GlobalVariables.idTienda)"
+                    
+                    ArregloQuerysStocks.append(QueryStockCaja)
+                    ArregloQuerysStocks.append(QueryStockProd)
+                    //Query para quitar producto
+                }else{
+                    //Es producto, se quita cantidad de stock
+                    let QueryStockProd = "UPDATE \(DB.inventario) SET cantidad = \(Int(cantidadActual)! - Int(arr[5])!) WHERE idProducto = \(arr[0]) AND idTienda = \(GlobalVariables.idTienda)"
+                    ArregloQuerysStocks.append(QueryStockProd)
+                }
+            }
+            
+            
+            
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd-MM-yyyy"
+            let result = formatter.string(from: date)
+            //Modificacion historial
+            /*if !DB.insertarEnDB(tabla: DB.historial, columnas: "(fecha,tipo,total,idTienda)" , valores: "('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))"){
+             banderaExito = false
+             }
+             //Modificación historial producto
+             let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
+             */
+            
+            ArregloQuerysStocks.append("INSERT INTO \(DB.historial) (fecha,tipo,total,idTienda) VALUES ('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))")
+            let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
+            
+            for arr in Arreglo {
+                ArregloQuerysStocks.append("INSERT INTO \(DB.historialProductos) (idTransaccion,idProducto,cantidad) VALUES (\(idHistorial),\(arr[0]),\(arr[5]))")
+            }
             if let vc = segue.destination as? ProcesarPagoViewController{
                 
                 vc.ArregloUpdates = self.ArregloQuerysStocks
@@ -137,6 +138,10 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func pressHelp(_ sender: Any) {
+        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el símbolo de ➕ agrega productos y procesa la venta."), animated: true, completion: nil)
+    }
+    
     func tapEnPantalla(){
         self.view.endEditing(true)
     }
@@ -180,14 +185,7 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
         
         return cell
     }
-    
-    @IBAction func pressCamera(_ sender: Any) {
-        scan.reset()
-        scan.errorDelegate = self
-        scan.dismissalDelegate = self
-        scan.codeDelegate = self
-        present(scan, animated: true,completion:nil)
-    }
+  
     
     @IBAction func pressCameras(_ sender: Any) {
         scan.reset()
