@@ -183,6 +183,15 @@ class RegistrarCajaViewController: UIViewController, BarcodeScannerCodeDelegate,
                         self.precioVentaTxt.text = ""
                     
                     }))
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {action in
+                        self.CodigoPrincipalTxt.text = ""
+                        self.nombreTxt.text = ""
+                        self.piezasTxt.text = ""
+                        self.precioTxt.text = ""
+                        self.CodigoSecundarioTxt.text = ""
+                        self.precioVentaTxt.text = ""
+                        
+                    }))
                     self.present(alert, animated: true, completion: nil)
                 }
             }else{

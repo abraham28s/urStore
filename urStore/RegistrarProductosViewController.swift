@@ -137,6 +137,16 @@ class RegistrarProductosViewController: UIViewController, BarcodeScannerCodeDele
                     self.tablaMarcas.cellForRow(at: self.ind)?.accessoryType = .none
                     
                 }))
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {action in
+                    self.nombreTxt.text = ""
+                    self.precioProductoTxt.text = ""
+                    self.precioVentaTxt.text = ""
+                    self.unidadTxt.text = ""
+                    self.CodigoPrincipalTxt.text = ""
+                    self.tablaMarcas.deselectRow(at: self.ind, animated: true)
+                    self.tablaMarcas.cellForRow(at: self.ind)?.accessoryType = .none
+                    
+                }))
                 self.present(alert, animated: true, completion: nil)
                 
             }

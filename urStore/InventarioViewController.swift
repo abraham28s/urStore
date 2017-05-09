@@ -57,7 +57,7 @@ class InventarioViewController:  UIViewController,UITableViewDelegate,UITableVie
         scan.dismiss(animated: true, completion: nil)
         
         codigoTxt.text = code
-        
+        codigoChange(codigoTxt)
         
     }
     

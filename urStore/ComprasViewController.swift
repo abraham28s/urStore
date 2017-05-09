@@ -181,6 +181,11 @@ class ComprasViewController: UIViewController, UITableViewDelegate,UITableViewDa
                 self.Arreglo = []
                 self.tabla.reloadData()
             }))
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                self.totalTxt.text = "0.0"
+                self.Arreglo = []
+                self.tabla.reloadData()
+            }))
             self.present(alert, animated: true, completion: nil)
         }else{
             print("Error en la compra")

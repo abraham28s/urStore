@@ -142,11 +142,15 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
     
     func validaCampos()->(valida:Bool,errorLog:String){
         var errorLog = ""
+        var cantitadenTXT = 0;
         if(tablaProductos.indexPathForSelectedRow == nil){
             errorLog = "\(errorLog)Debes seleccionar un producto\n"
         }
         if(cantidadTxt.text == ""){
             errorLog = "\(errorLog)Cantidad no puede estar vacío\n"
+            cantitadenTXT = 0
+        }else{
+            cantitadenTXT = Int(cantidadTxt.text!)!
         }
         
         if(!GlobalVariables.siEsCompraEsTrue){
@@ -156,6 +160,7 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
             
             
             if(arregloProductos[(tablaProductos.indexPathForSelectedRow?.row)!][4] == "si"){
+                
                 let cantidadActualArr = DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(idProducto)")
                 var cantidadActual = 0
                 if(cantidadActualArr.isEmpty){
@@ -190,7 +195,7 @@ class AgregarACompraViewController: UIViewController, UITableViewDataSource, UIT
                     cantidadActual = Int(cantidadActualArr[0][0])!
                 }
                 
-                if(Int(cantidadTxt.text!)! > cantidadActual){
+                if(Int(cantitadenTXT) > cantidadActual){
                     errorLog = "\(errorLog)Cantidad no puede ser mayor que el stock actual, stock actual: \(cantidadActual)\n"
                 }
             }

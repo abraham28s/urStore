@@ -17,22 +17,13 @@ class ProcesarPagoViewController: UIViewController {
     let DB:DataBase = DataBase()
     var total="0.00"
     
-    init(total:String,aup:[String],ain:[String]) {
-        
-        self.total = total
-        self.ArregloUpdates = aup
-        self.ArregloInserts = ain
-        super.init(nibName: nil, bundle: nil)
-    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    required init?(coder aDecoder: NSCoder){
-        fatalError("init(coder:) has not been implemented")
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +43,8 @@ class ProcesarPagoViewController: UIViewController {
     func tapEnPantalla(){
         self.view.endEditing(true)
     }
+    
+    
 
     @IBAction func dineroRecibidoChange(_ sender: UITextField) {
         if sender.text != ""{
@@ -64,7 +57,7 @@ class ProcesarPagoViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        totalTxt.text! = total
+        totalTxt.text = total
     }
 
     override func didReceiveMemoryWarning() {

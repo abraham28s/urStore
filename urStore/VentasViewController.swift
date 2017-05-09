@@ -61,7 +61,7 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     let DB:DataBase = DataBase()
 
     @IBAction func presHelp(_ sender: Any) {
-        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el símbolo de ➕ agrega productos y procesa la compra."), animated: true, completion: nil)
+        self.present(DB.alertaDefault(titulo: "Ayuda", texto: "Con el símbolo de ➕ agrega productos y procesa el pago."), animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,14 +124,21 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
              let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
              */
             
-            ArregloQuerysStocks.append("INSERT INTO \(DB.historial) (fecha,tipo,total,idTienda) VALUES ('\(result)','Compra',\(totalTxt.text!),\(GlobalVariables.idTienda))")
+            ArregloQuerysInsertar.append("INSERT INTO \(DB.historial) (fecha,tipo,total,idTienda) VALUES ('\(result)','Venta',\(totalTxt.text!),\(GlobalVariables.idTienda))")
             let idHistorial = DB.selectFrom(table: DB.historial, columnas: "MAX(idTransaccion)")[0][0]
             
             for arr in Arreglo {
-                ArregloQuerysStocks.append("INSERT INTO \(DB.historialProductos) (idTransaccion,idProducto,cantidad) VALUES (\(idHistorial),\(arr[0]),\(arr[5]))")
+                ArregloQuerysInsertar.append("INSERT INTO \(DB.historialProductos) (idTransaccion,idProducto,cantidad) VALUES (\(idHistorial),\(arr[0]),\(arr[5]))")
             }
-            let procesarCompra = ProcesarPagoViewController(total: self.totalTxt.text!, aup: ArregloQuerysStocks, ain: ArregloQuerysInsertar)
-            self.navigationController?.pushViewController(procesarCompra, animated: true)
+            let procesarComprar = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "procesarPagoSB") as! ProcesarPagoViewController
+            
+            procesarComprar.ArregloInserts = ArregloQuerysInsertar
+            procesarComprar.ArregloUpdates = ArregloQuerysStocks
+            procesarComprar.total = self.totalTxt.text!
+            
+            
+            /*let procesarCompra = ProcesarPagoViewController(total: self.totalTxt.text!, aup: ArregloQuerysStocks, ain: ArregloQuerysInsertar)*/
+            self.navigationController?.pushViewController(procesarComprar, animated: true)
         }else{
             self.present(DB.alertaDefault(titulo: GlobalVariables.error, texto: "Para poder proceder con el pago debe haber al menos un producto en la venta."), animated: true, completion: nil)
         }
@@ -143,6 +150,8 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
     
     override func viewWillAppear(_ animated: Bool) {
         tabla.reloadData()
+        ArregloQuerysInsertar.removeAll()
+        ArregloQuerysStocks.removeAll()
         actualizarTotal()
         
     }
@@ -196,7 +205,7 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
         let id = DB.selectFrom(table: DB.productos, columnas: "id",whereClause: "WHERE codigoBarras = '\(code)'")[0][0]
         
         if(Int(DB.selectFrom(table: DB.inventario, columnas: "cantidad",whereClause: "WHERE idProducto = \(id)")[0][0])!>0){
-            var producto = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioCompra,codigoBarras,esCaja",whereClause: "WHERE codigoBarras ='\(code)'")
+            var producto = DB.selectFrom(table: DB.productos, columnas: "id,nombre,precioVenta,codigoBarras,esCaja",whereClause: "WHERE codigoBarras ='\(code)'")
             
             producto[0].append("1")
             print(producto)
@@ -211,6 +220,9 @@ class VentasViewController: UIViewController,BarcodeScannerCodeDelegate, Barcode
         }
         
     }
+    
+
+    
     func barcodeScanner(_ controller: BarcodeScannerController, didReceiveError error: Error) {
         print("Error al capturar código")
     }

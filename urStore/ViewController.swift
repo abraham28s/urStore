@@ -58,14 +58,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.view.isExclusiveTouch = false
         contenedor.isUserInteractionEnabled = true
         
-        /*/self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ventasSB") as UIViewController
+        /*self.currentViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "balanceSB") as UIViewController
         self.displayContentController(content: self.currentViewController!)*/
-        self.cambiarHijo(identif: "ventasSB")
+        
         
         
         super.viewDidLoad()
-        
+        cambiarHijo(identif: "ventasSB")
     }
+    
     
     func tapEnPantalla(){
         if menuMostrado{
@@ -76,7 +77,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     
     func displayContentController(content: UIViewController) {
-        
+        content.view.translatesAutoresizingMaskIntoConstraints = true
         addChildViewController(content)
         contenedor.addSubview(content.view)
         content.didMove(toParentViewController: self)
@@ -110,7 +111,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.botonMenu.frame = CGRect(x: self.botonMenu.frame.minX - 300, y: self.botonMenu.frame.minY, width: self.botonMenu.frame.width, height: self.botonMenu.frame.height)
             }, completion: nil)
         }
-       
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,7 +124,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }else{
             mostrarMenuLateral()
         }
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -206,7 +205,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var celda = UITableViewCell(style: .default, reuseIdentifier: "cell")
+        let celda = UITableViewCell(style: .default, reuseIdentifier: "cell")
         celda.textLabel?.text = ArregloColumnas[indexPath.section][indexPath.row]
         return celda
     }

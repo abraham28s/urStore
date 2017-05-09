@@ -739,7 +739,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJQ-qR-nru">
+                            <containerView autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJQ-qR-nru">
                                 <rect key="frame" x="0.0" y="107" width="375" height="560"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2TF-k6-P1z">
@@ -776,6 +776,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="WJQ-qR-nru" firstAttribute="width" secondItem="O3x-34-lC0" secondAttribute="width" id="0Ia-a4-UH5"/>
                             <constraint firstItem="WJQ-qR-nru" firstAttribute="leading" secondItem="O3x-34-lC0" secondAttribute="leadingMargin" constant="-16" id="5AY-99-KOF"/>
                             <constraint firstItem="2TF-k6-P1z" firstAttribute="top" secondItem="ACE-P9-9Ql" secondAttribute="bottom" id="5bJ-ZV-1tn"/>
                             <constraint firstItem="2TF-k6-P1z" firstAttribute="leading" secondItem="O3x-34-lC0" secondAttribute="leadingMargin" constant="-16" id="IB2-zp-aA8"/>
@@ -1456,7 +1457,7 @@
         <!--Agregar Producto-->
         <scene sceneID="hqQ-UJ-kq4">
             <objects>
-                <viewController title="Agregar Producto" automaticallyAdjustsScrollViewInsets="NO" id="KXt-Vw-52O" customClass="ProcesarPagoViewController" customModule="urStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="procesarPagoSB" title="Agregar Producto" automaticallyAdjustsScrollViewInsets="NO" id="KXt-Vw-52O" customClass="ProcesarPagoViewController" customModule="urStore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L4q-FE-Y6s"/>
                         <viewControllerLayoutGuide type="bottom" id="tEE-uE-oA7"/>

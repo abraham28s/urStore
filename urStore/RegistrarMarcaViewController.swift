@@ -68,6 +68,11 @@ class RegistrarMarcaViewController: UIViewController, UITableViewDelegate, UITab
                 self.tablaProveedores.deselectRow(at: self.ind, animated: true)
                 self.tablaProveedores.cellForRow(at: self.ind)?.accessoryType = .none
             }))
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {action in
+                self.nombreTxt.text = ""
+                self.tablaProveedores.deselectRow(at: self.ind, animated: true)
+                self.tablaProveedores.cellForRow(at: self.ind)?.accessoryType = .none
+            }))
             self.present(alert, animated: true, completion: nil)
 
         }

@@ -120,6 +120,7 @@ class DataBase {
             print("Error Desc: \(errmsg)\n")
             return false
         }
+        print("Exito al insertar raw query")
         return true
     }
     
@@ -129,7 +130,7 @@ class DataBase {
         var error: UnsafeMutablePointer<Int8>? = nil
         if sqlite3_exec(basesDatos, sqlActualiza, nil, nil, &error) == SQLITE_OK {
             
-            print("Exito al actualizar")
+            print("Exito al actualizar raw query")
             return true
         }else{
             print("\nError en query update")

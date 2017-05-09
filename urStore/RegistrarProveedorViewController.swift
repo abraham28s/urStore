@@ -64,6 +64,13 @@ class RegistrarProveedorViewController: UIViewController, UIPickerViewDelegate, 
                 self.frecuenciaSelector.selectRow(0, inComponent: 1, animated: true)
                 self.frecuenciaTxt.text = "\(self.arregloFrecuencia[0][self.frecuenciaSelector.selectedRow(inComponent: 0)]) \(self.arregloFrecuencia[1][self.frecuenciaSelector.selectedRow(inComponent: 1)])"
             }))
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                self.nombreTxt.text = ""
+                self.frecuenciaTxt.text = ""
+                self.frecuenciaSelector.selectRow(0, inComponent: 0, animated: true)
+                self.frecuenciaSelector.selectRow(0, inComponent: 1, animated: true)
+                self.frecuenciaTxt.text = "\(self.arregloFrecuencia[0][self.frecuenciaSelector.selectedRow(inComponent: 0)]) \(self.arregloFrecuencia[1][self.frecuenciaSelector.selectedRow(inComponent: 1)])"
+            }))
             self.present(alert, animated: true, completion: nil)
         }
     }
